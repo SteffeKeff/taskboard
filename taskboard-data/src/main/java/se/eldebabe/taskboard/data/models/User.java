@@ -21,5 +21,15 @@ public class User extends AbstractEntity{
 	
 	@ManyToOne
 	private Team team;
+	
+	protected User() {
+	}
 
+	
+	public User(String userID, String  firstName, String userName, Team team){
+		this.userID = userID;
+		this.firstName = firstName;
+		this.userName = userName;
+		this.team = team;
+	}
 }

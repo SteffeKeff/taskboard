@@ -19,6 +19,10 @@ public class Team extends AbstractEntity {
 	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
 	private Collection<User> users;
 	
+	protected Team() {
+	}
+	
+	
 	public Team(String teamName) {
 		this.teamName = teamName;
 	}
@@ -26,5 +30,12 @@ public class Team extends AbstractEntity {
 	public String getName() {
 		return teamName;
 	}
+	
+	public User addUserToTeam(User user){
+		users.add(user);
+		return user;
+	}
+	
+	
 
 }
