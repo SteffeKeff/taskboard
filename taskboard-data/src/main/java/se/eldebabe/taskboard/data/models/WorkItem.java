@@ -11,7 +11,7 @@ public class WorkItem extends AbstractEntity{
 	@Column(name = "title")
 	private String title;
 	
-	@Column(name = "desc")
+	@Column(name = "description")
 	private String description;
 	
 	@Column(name = "completed")
@@ -22,6 +22,21 @@ public class WorkItem extends AbstractEntity{
 	public WorkItem(String title, String description){
 		this.title = title;
 		this.description = description;
+	}
+
+	public String getTitle()
+	{
+		return title;
+	}
+
+	public String getDescription()
+	{
+		return description;
+	}
+
+	public boolean isCompleted()
+	{
+		return completed;
 	}
 	
 }
