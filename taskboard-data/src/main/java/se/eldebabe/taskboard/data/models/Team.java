@@ -9,12 +9,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-@Table(name = "Team")
+@Table(name = "teams")
 @Entity
 public class Team extends AbstractEntity {
 	
-	@Column(name = "team_id")
-	private String teamName;
+	@Column(name = "name")
+	private String name;
 	
 	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
 	private Collection<User> users;
@@ -22,20 +22,17 @@ public class Team extends AbstractEntity {
 	protected Team() {
 	}
 	
-	
 	public Team(String teamName) {
-		this.teamName = teamName;
+		this.name = teamName;
 	}
 
 	public String getName() {
-		return teamName;
+		return name;
 	}
 	
-	public User addUserToTeam(User user){
+	public User addUser(User user){
 		users.add(user);
 		return user;
 	}
-	
-	
 
 }
