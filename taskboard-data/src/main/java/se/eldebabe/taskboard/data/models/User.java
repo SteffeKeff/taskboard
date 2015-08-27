@@ -1,8 +1,11 @@
 package se.eldebabe.taskboard.data.models;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -22,6 +25,9 @@ public class User extends AbstractEntity{
 	@ManyToOne
 	private Team team;
 	
+	@OneToMany
+	private Collection<WorkItem> workItems;
+	
 	protected User() {
 	}
 
@@ -31,5 +37,10 @@ public class User extends AbstractEntity{
 		this.firstName = firstName;
 		this.userName = userName;
 		this.team = team;
+	}
+	
+	public WorkItem addWorkItem(WorkItem workItem){
+		workItems.add(workItem);
+		return workItem;
 	}
 }
