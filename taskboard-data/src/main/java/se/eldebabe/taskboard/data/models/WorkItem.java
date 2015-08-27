@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Work_Items")
+@Table(name = "work-items")
 public class WorkItem extends AbstractEntity{
 
 	@Column(name = "title")
@@ -23,7 +23,5 @@ public class WorkItem extends AbstractEntity{
 		this.title = title;
 		this.description = description;
 	}
-	
-	
 	
 }

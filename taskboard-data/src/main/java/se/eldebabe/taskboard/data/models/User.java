@@ -8,19 +8,21 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User extends AbstractEntity{
 	
 	@Column(name = "user_id", unique = true)
 	private String userID;
 	
-	@Column(name = "name")
-	private String firstName;
-
 	@Column(name = "user_name")
 	private String userName;
+	
+	@Column(name = "first_name")
+	private String firstName;
+	
+	@Column(name = "last_name")
+	private String lastName;
 	
 	@ManyToOne
 	private Team team;
@@ -31,14 +33,47 @@ public class User extends AbstractEntity{
 	protected User() {
 	}
 
-	
-	public User(String userID, String  firstName, String userName, Team team){
+	public User(String userID, String userName, String firstName, String lastName, Team team, Collection<WorkItem> workItems)
+	{
+		super();
 		this.userID = userID;
-		this.firstName = firstName;
 		this.userName = userName;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.team = team;
+		this.workItems = workItems;
 	}
 	
+	public String getUserID()
+	{
+		return userID;
+	}
+
+	public String getUserName()
+	{
+		return userName;
+	}
+
+	public String getFirstName()
+	{
+		return firstName;
+	}
+
+	public String getLastName()
+	{
+		return lastName;
+	}
+
+	public Team getTeam()
+	{
+		return team;
+	}
+
+	public Collection<WorkItem> getWorkItems()
+	{
+		return workItems;
+	}
+
 	public WorkItem addWorkItem(WorkItem workItem){
 		workItems.add(workItem);
 		return workItem;
