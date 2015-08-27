@@ -1,4 +1,4 @@
-package se.eldebabe.taskboard.services;
+package se.eldebabe.taskboard.data.services;
 
 import static org.junit.Assert.*;
 
