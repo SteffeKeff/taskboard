@@ -1,5 +1,5 @@
 package se.eldebabe.taskboard.data.models;
 
-public class Issue {
+public class Issue extends AbstractEntity {
 
 }

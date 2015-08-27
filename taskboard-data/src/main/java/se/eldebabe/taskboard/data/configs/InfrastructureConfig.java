@@ -17,7 +17,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@EnableJpaRepositories("se.coredev.jpa.repository")
+@EnableJpaRepositories("se.eldebabe.taskboard.data.repository")
 @EnableTransactionManagement
 public class InfrastructureConfig {
 
