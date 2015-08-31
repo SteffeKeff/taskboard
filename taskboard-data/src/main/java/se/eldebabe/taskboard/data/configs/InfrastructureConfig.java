@@ -26,7 +26,7 @@ public class InfrastructureConfig {
 
 		HikariConfig config = new HikariConfig();
 		config.setDriverClassName("com.mysql.jdbc.Driver");
-		config.setJdbcUrl("jdbc:mysql://localhost:3307/laboration");
+		config.setJdbcUrl("jdbc:mysql://localhost:3307/taskboard");
 		config.setUsername("root");
 		config.setPassword("");
 
