@@ -1,5 +1,7 @@
 package se.eldebabe.taskboard.data.services;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import se.eldebabe.taskboard.data.models.WorkItem;

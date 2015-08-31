@@ -9,8 +9,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
-@Table(name = "teams")
+
 @Entity
+@Table(name = "teams")
 public class Team extends AbstractEntity {
 	
 	@Column(name = "name")

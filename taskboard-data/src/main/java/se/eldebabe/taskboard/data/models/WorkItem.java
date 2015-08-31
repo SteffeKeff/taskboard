@@ -10,37 +10,34 @@ public class WorkItem extends AbstractEntity{
 
 	@Column(name = "title")
 	private String title;
-	
+
 	@Column(name = "description")
 	private String description;
-	
+
 	@Column(name = "completed")
 	private boolean completed;
-	
+
 	protected WorkItem(){}
-	
+
 	public WorkItem(String title, String description){
 		this.title = title;
 		this.description = description;
 	}
 
-	public String getTitle()
-	{
+	public String getTitle(){
 		return title;
 	}
 
-	public String getDescription()
-	{
+	public String getDescription(){
 		return description;
 	}
 
-	public boolean isCompleted()
-	{
+	public boolean isCompleted(){
 		return completed;
 	}
 
-	public void setCompleted(boolean completed) {
+	public void setCompleted(boolean completed){
 		this.completed = completed;
 	}
-	
+
 }
