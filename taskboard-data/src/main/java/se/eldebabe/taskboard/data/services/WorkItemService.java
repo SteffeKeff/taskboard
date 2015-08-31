@@ -1,7 +1,6 @@
 package se.eldebabe.taskboard.data.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 
 import se.eldebabe.taskboard.data.models.Status;
