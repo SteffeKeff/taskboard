@@ -13,5 +13,13 @@ public class WorkItemService {
 	public WorkItem saveWorkItem(WorkItem workItem){
 		return workItemRepository.save(workItem);
 	}
+	
+	public WorkItem findWorkItem(long id){
+		return workItemRepository.findOne(id);
+	}
+	
+	public void deleteWorkItem(long id){
+		workItemRepository.delete(id);
+	}
 
 }
