@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "work-items")
+@Table(name = "work_items")
 public class WorkItem extends AbstractEntity{
 
 	@Column(name = "title")
@@ -37,6 +37,10 @@ public class WorkItem extends AbstractEntity{
 	public boolean isCompleted()
 	{
 		return completed;
+	}
+
+	public void setCompleted(boolean completed) {
+		this.completed = completed;
 	}
 	
 }

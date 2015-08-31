@@ -17,7 +17,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@EnableJpaRepositories("se.eldebabe.taskboard.data.repository")
+@EnableJpaRepositories("se.eldebabe.taskboard.data.repositories")
 @EnableTransactionManagement
 public class InfrastructureConfig {
 
@@ -53,7 +53,7 @@ public class InfrastructureConfig {
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setDataSource(dataSource());
 		factory.setJpaVendorAdapter(jpaVendorAdapter());
-		factory.setPackagesToScan("se.eldebabe.taskboard.data.model");
+		factory.setPackagesToScan("se.eldebabe.taskboard.data.models");
 
 		return factory;
 	}

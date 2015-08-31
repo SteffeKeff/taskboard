@@ -13,7 +13,6 @@ public class Issue extends AbstractEntity {
 	
 	public Issue(String description)
 	{
-		super();
 		this.description = description;
 	}
 

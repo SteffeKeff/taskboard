@@ -35,7 +35,6 @@ public class User extends AbstractEntity{
 
 	public User(String userID, String userName, String firstName, String lastName, Team team, Collection<WorkItem> workItems)
 	{
-		super();
 		this.userID = userID;
 		this.userName = userName;
 		this.firstName = firstName;
