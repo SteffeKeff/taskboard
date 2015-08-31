@@ -11,30 +11,30 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "users")
 public class User extends AbstractEntity{
-	
+
 	@Column(name = "user_id", unique = true)
 	private String userID;
-	
+
 	@Column(name = "user_name")
 	private String userName;
-	
+
 	@Column(name = "first_name")
 	private String firstName;
-	
+
 	@Column(name = "last_name")
 	private String lastName;
-	
+
 	@ManyToOne
 	private Team team;
-	
+
 	@OneToMany
 	private Collection<WorkItem> workItems;
-	
-	protected User() {
+
+	protected User(){
 	}
 
-	public User(String userID, String userName, String firstName, String lastName, Team team, Collection<WorkItem> workItems)
-	{
+	public User(String userID, String userName, String firstName, String lastName, Team team,
+			Collection<WorkItem> workItems){
 		this.userID = userID;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -42,34 +42,28 @@ public class User extends AbstractEntity{
 		this.team = team;
 		this.workItems = workItems;
 	}
-	
-	public String getUserID()
-	{
+
+	public String getUserID(){
 		return userID;
 	}
 
-	public String getUserName()
-	{
+	public String getUserName(){
 		return userName;
 	}
 
-	public String getFirstName()
-	{
+	public String getFirstName(){
 		return firstName;
 	}
 
-	public String getLastName()
-	{
+	public String getLastName(){
 		return lastName;
 	}
 
-	public Team getTeam()
-	{
+	public Team getTeam(){
 		return team;
 	}
 
-	public Collection<WorkItem> getWorkItems()
-	{
+	public Collection<WorkItem> getWorkItems(){
 		return workItems;
 	}
 

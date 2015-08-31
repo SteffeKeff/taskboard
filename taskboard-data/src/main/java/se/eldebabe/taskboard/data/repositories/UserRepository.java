@@ -8,15 +8,15 @@ import org.springframework.data.repository.CrudRepository;
 
 import se.eldebabe.taskboard.data.models.User;
 
-
 public interface UserRepository extends CrudRepository<User, Long>{
+
+	List<User> findByUserID(String userID);
+	List<User> findByFirstName(String firstName);
+	List<User> findByLastName(String lastName);
+	List<User> findByUserName(String userName);
+	User findByUserId(String userId);
 	
-	List<User> findByuserID(String userID);
-	List<User> findByuserName(String userName);
-	List<User> findByfirstName(String firstName);
-
-
+	
 	@Transactional
-	List<User> deleteByuserID(String userID);
-
+	List<User> deleteByUserID(String userID);
 }
