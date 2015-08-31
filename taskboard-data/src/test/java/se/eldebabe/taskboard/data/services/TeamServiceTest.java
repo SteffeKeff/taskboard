@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class UserServiceTest{
+public class TeamServiceTest {
 
 	@BeforeClass
 	public void setup(){
@@ -13,7 +13,7 @@ public class UserServiceTest{
 	}
 	
 	@Test
-	public void test(){
+	public void test() {
 		fail("Not yet implemented");
 	}
 
