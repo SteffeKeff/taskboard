@@ -2,6 +2,8 @@ package se.eldebabe.taskboard.data.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 
 @Entity
@@ -15,11 +17,13 @@ public class WorkItem extends AbstractEntity{
 	private String description;
 
 	@Column(name = "completed")
-	private boolean completed;
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 	protected WorkItem(){}
 
 	public WorkItem(String title, String description){
+		status = Status.NOT_STARTED;
 		this.title = title;
 		this.description = description;
 	}
@@ -32,12 +36,12 @@ public class WorkItem extends AbstractEntity{
 		return description;
 	}
 
-	public boolean isCompleted(){
-		return completed;
+	public Status getStatus(){
+		return status;
 	}
 
-	public void setCompleted(boolean completed){
-		this.completed = completed;
+	public void setCompleted(Status status){
+		this.status = status;
 	}
 
 }

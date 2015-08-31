@@ -1,9 +1,10 @@
 package se.eldebabe.taskboard.data.services;
 
-import javax.transaction.Transactional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import se.eldebabe.taskboard.data.models.Status;
 import se.eldebabe.taskboard.data.models.WorkItem;
 import se.eldebabe.taskboard.data.repositories.WorkItemRepository;
 
@@ -22,6 +23,14 @@ public class WorkItemService {
 	
 	public void deleteWorkItem(long id){
 		workItemRepository.delete(id);
+	}
+
+	public List<WorkItem> findWorkItemsWithStatus(Status status) {
+		return workItemRepository.findByStatus(status);
+	}
+
+	public List<WorkItem> findWorkItemWithDescriptionLike(String description) {
+		return workItemRepository.findByDescriptionContaining(description);
 	}
 
 }
