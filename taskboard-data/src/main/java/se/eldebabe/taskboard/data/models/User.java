@@ -32,7 +32,7 @@ public class User extends AbstractEntity{
 
 	protected User(){
 	}
-
+	
 	public User(String userID, String userName, String firstName, String lastName, Team team,
 			Collection<WorkItem> workItems){
 		this.userID = userID;
