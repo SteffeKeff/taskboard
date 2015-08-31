@@ -10,7 +10,7 @@ public class TeamService {
 	@Autowired
 	private TeamRepository teamRepository;
 	
-	public Team saveDepartment(Team team){
+	public Team saveTeam(Team team){
 		return teamRepository.save(team);
 	}
 	

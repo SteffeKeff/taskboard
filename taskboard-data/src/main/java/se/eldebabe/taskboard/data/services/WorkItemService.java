@@ -10,7 +10,7 @@ public class WorkItemService {
 	@Autowired
 	private WorkItemRepository workItemRepository;
 	
-	public WorkItem saveDepartment(WorkItem workItem){
+	public WorkItem saveWorkItem(WorkItem workItem){
 		return workItemRepository.save(workItem);
 	}
 

@@ -10,7 +10,7 @@ public class IssueService {
 	@Autowired
 	private IssueRepository issueRepository;
 	
-	public Issue saveDepartment(Issue issue){
+	public Issue saveIssue(Issue issue){
 		return issueRepository.save(issue);
 	}
 
