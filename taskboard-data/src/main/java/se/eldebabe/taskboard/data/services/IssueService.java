@@ -14,6 +14,8 @@ public class IssueService {
 		return issueRepository.save(issue);
 	}
 	
-	public void addWorkitem(){}
-	
+	public Issue deleteIssue(Issue issue){
+		issueRepository.delete(issue);
+		return issue;
+	}
 }
