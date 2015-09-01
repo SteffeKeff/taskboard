@@ -49,25 +49,7 @@ public class UserServiceTest{
 		userService.deleteUser(user.getId());
 		assertThat("userService deleted User", null, is(userService.findByUserName("user3")));
 	}
-<<<<<<< HEAD
 	
-	/*//// These test have relations ////*/
-	
-	@Test
-	public void assertThatAnUserCanBeAssignedAnWorkItemAndFetchAllWorkItems(){
-		WorkItem workItem1 = new WorkItem("nytt work item1", "ett litet uppdrag här!");
-		WorkItem workItem2 = new WorkItem("nytt work item2", "ett litet uppdrag här!!");
-		WorkItem workItem3 = new WorkItem("nytt work item3", "ett litet uppdrag här!!!");
-		user = new User("1010", "user1337", "steffo", "keffo");
-		user.addWorkItem(workItem1);
-		user.addWorkItem(workItem2);
-		user.addWorkItem(workItem3);
-		userService.saveUser(user);
-		assertThat("the user should now have one workItem", user.getWorkItems().size(), is(userService.findUser("1010").getWorkItems().size()));
-	}
-	
-=======
-
 	@Test
 	public void assertThatUserCanBeFoundByUserId(){
 		user = new User("1004", "user4", "Steffe", "Kung");
@@ -97,8 +79,22 @@ public class UserServiceTest{
 		userService.saveUser(user);
 		assertThat("User is found by it's username", "1007", is(userService.findByUserName("user7").getUserId()));
 	}
+	
+	/*//// These test have relations ////*/
+	
+	@Test
+	public void assertThatAnUserCanBeAssignedAnWorkItemAndFetchAllWorkItems(){
+		WorkItem workItem1 = new WorkItem("nytt work item1", "ett litet uppdrag här!");
+		WorkItem workItem2 = new WorkItem("nytt work item2", "ett litet uppdrag här!!");
+		WorkItem workItem3 = new WorkItem("nytt work item3", "ett litet uppdrag här!!!");
+		user = new User("1010", "user1337", "steffo", "keffo");
+		user.addWorkItem(workItem1);
+		user.addWorkItem(workItem2);
+		user.addWorkItem(workItem3);
+		userService.saveUser(user);
+		assertThat("the user should now have one workItem", user.getWorkItems().size(), is(userService.findUser("1010").getWorkItems().size()));
+	}
 
->>>>>>> a6550b4be1dccc8255a0d58c98b705f40dad7a07
 	@AfterClass
 	public static void tearDown(){
 		userService.clearUsers();
