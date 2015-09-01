@@ -38,16 +38,14 @@ public class UserServiceTest{
 		userService.saveUser(user);
 		Long userId = user.getId();
 		user = new User("1002", "user2", "Peter", "Svensson");
-		user.setId(userId);
-		userService.saveUser(user);
+		userService.updateUser(userId, user);
 		assertThat("User should now be changed", user.getFirstName(), is(userService.findByUserName("user2").getFirstName()));
 	}
 	
 	@Test
 	public void assertThatUserCanBeDeleted(){
-		user = new User("1001", "user3", "Steff", "keff");
+		user = new User("1003", "user3", "Steff", "keff");
 		userService.saveUser(user);
-		System.out.println(user.getId());
 		userService.deleteUser(user.getId());
 		assertThat("userService deleted User", null, is(userService.findByUserName("user3")));
 	}
