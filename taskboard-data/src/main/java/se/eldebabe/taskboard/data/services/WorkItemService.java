@@ -28,7 +28,7 @@ public class WorkItemService {
 		return workItemRepository.findByStatus(status);
 	}
 
-	public List<WorkItem> findWorkItemWithDescriptionLike(String description) {
+	public List<WorkItem> findWorkItemWithDescriptionContaining(String description) {
 		return workItemRepository.findByDescriptionContaining(description);
 	}
 

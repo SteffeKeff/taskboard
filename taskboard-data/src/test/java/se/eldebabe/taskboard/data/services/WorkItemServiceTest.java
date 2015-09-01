@@ -68,7 +68,7 @@ public final class WorkItemServiceTest {
 	public void assertThatWorkItemsCanBeFetchedByDescription(){
 		WorkItem i1 = new WorkItem("theWorkItem","can you find this workitem");
 		workItemService.saveWorkItem(i1);
-		assertThat("There should be one work item containing description 'this workitem'", 1, is(workItemService.findWorkItemWithDescriptionLike("this workitem").size()));
+		assertThat("There should be one work item containing description 'this workitem'", 1, is(workItemService.findWorkItemWithDescriptionContaining("this workitem").size()));
 	}
 	
 	@AfterClass
