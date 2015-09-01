@@ -3,6 +3,8 @@ package se.eldebabe.taskboard.data.services;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
+import java.util.List;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -16,6 +18,7 @@ public class TeamServiceTest {
 	private static AnnotationConfigApplicationContext context;
 	private TeamService teamService;
 	private Team team;
+	private List<Team> teams;
 	
 	@BeforeClass
 	public static void setupConfigs(){
@@ -45,8 +48,19 @@ public class TeamServiceTest {
 	@Test
 	public void assertThatTeamCanBeUpdated(){
 		Team updatedTeam = teamService.updateTeam(team);
-		assertThat("Team is updated", team, is(updatedTeam));
-				
+		assertThat("Team is updated", team, is(updatedTeam));			
+	}
+	
+	@Test
+	public void assertThatAllTeamesCanBeFetched(){
+		Team team2 = new Team("team2");
+		Team team3 = new Team("team2");
+		teamService.saveTeam(team);
+		teamService.saveTeam(team2);
+		teamService.saveTeam(team3);
+		
+		teams = teamService.findAllTeams();
+		assertThat("Team count matches", 3, is(teams.size()));
 	}
 	
 	@AfterClass
