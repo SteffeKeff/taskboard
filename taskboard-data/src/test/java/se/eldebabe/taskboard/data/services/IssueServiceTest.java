@@ -40,6 +40,19 @@ public class IssueServiceTest{
 		issueService.saveIssue(issue);
 		assertThat("issueService should find issue", 1L, is(issueService.findIssueById(1L).getId()));
 	}
+	
+	@Test 
+	public void assertThatIssueIsNotGettable(){
+		assertThat("", null, is(issueService.findIssueById(5L)));
+	}
+	
+	@Test
+	public void assertThatIssueCanBeUpdated(){
+		issueService.saveIssue(issue);
+		issue.setDescription("Förlängd leveranstid till 18/9-15");
+		issueService.saveIssue(issue);
+		assertThat("", issue.getDescription(), is(issueService.findIssueById(1L).getDescription()));
+	}
 
 	@Test
 	public void assertThatIssueCanBeDeleted(){
@@ -47,6 +60,8 @@ public class IssueServiceTest{
 		issueService.deleteIssue(issue);
 		assertThat("issueService must not find issue", null, is(issueService.findIssueById(issue.getId())));
 	}
+	
+	//uppdatera. se till att det smäller fint då idt inte finns
 
 	@AfterClass
 	public static void tearDown(){
