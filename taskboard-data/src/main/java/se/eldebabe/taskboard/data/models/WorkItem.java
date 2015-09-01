@@ -1,15 +1,12 @@
 package se.eldebabe.taskboard.data.models;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,8 +23,8 @@ public class WorkItem extends AbstractEntity{
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private Collection<Issue> issues;
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	private Issue issue;
 	
 	protected WorkItem(){}
 
@@ -35,7 +32,6 @@ public class WorkItem extends AbstractEntity{
 		status = Status.NOT_STARTED;
 		this.title = title;
 		this.description = description;
-		issues = new ArrayList<Issue>();
 	}
 
 	public String getTitle(){
@@ -50,16 +46,16 @@ public class WorkItem extends AbstractEntity{
 		return status;
 	}
 	
-	public Collection<Issue> getIssues(){
-		return issues;
+	public Issue getIssue(){
+		return issue;
 	}
 
 	public void setCompleted(Status status){
 		this.status = status;
 	}
 	
-	public void addIssue(Issue issue){
-		this.issues.add(issue);
+	public void setIssue(Issue issue){
+		this.issue = issue;
 	}
 
 }
