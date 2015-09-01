@@ -25,12 +25,16 @@ public class TeamService {
 		return team;
 	}
 	
+	public Team findTeam(Team team){
+		return teamRepository.findOne(team.getId());
+	}
+	
 	@Transactional
 	public Team updateTeam(Team team){
 		return teamRepository.save(team);
 	}
 	
-	@Transactional
+
 	public List<Team> findAllTeams(){
 		return (List<Team>) teamRepository.findAll();
 	}
