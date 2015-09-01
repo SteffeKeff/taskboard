@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class User extends AbstractEntity{
 
 	@Column(name = "user_id", unique = true)
-	private String userID;
+	private String userId;
 
 	@Column(name = "user_name")
 	private String userName;
@@ -33,18 +33,15 @@ public class User extends AbstractEntity{
 	protected User(){
 	}
 	
-	public User(String userID, String userName, String firstName, String lastName, Team team,
-			Collection<WorkItem> workItems){
-		this.userID = userID;
+	public User(String userId, String userName, String firstName, String lastName){
+		this.userId = userId;
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.team = team;
-		this.workItems = workItems;
 	}
 
-	public String getUserID(){
-		return userID;
+	public String getUserId(){
+		return userId;
 	}
 
 	public String getUserName(){
@@ -70,5 +67,10 @@ public class User extends AbstractEntity{
 	public WorkItem addWorkItem(WorkItem workItem){
 		workItems.add(workItem);
 		return workItem;
+	}
+	
+	public Team setTeam(Team team){
+		this.team = team;
+		return this.team;
 	}
 }
