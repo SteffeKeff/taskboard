@@ -11,7 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import se.eldebabe.taskboard.data.models.Issue;
 
-public class IssueServiceTest{
+public final class IssueServiceTest{
 
 	private static AnnotationConfigApplicationContext context;
 	private IssueService issueService;

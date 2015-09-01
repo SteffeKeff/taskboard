@@ -27,7 +27,7 @@ public class User extends AbstractEntity{
 	@Column(name = "last_name")
 	private String lastName;
 
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	private Team team;
 
 	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

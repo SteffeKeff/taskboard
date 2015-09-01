@@ -12,13 +12,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import se.eldebabe.taskboard.data.models.Team;
 import se.eldebabe.taskboard.data.models.User;
+import se.eldebabe.taskboard.data.models.WorkItem;
 
-public class TeamServiceTest {
+public final class TeamServiceTest {
 
 	private static AnnotationConfigApplicationContext context;
 	private static TeamService teamService;
-	private Team team;
+	private static UserService userService;
 	private static ArrayList<Team> teams;
+	private Team team;
 	
 	
 	@BeforeClass
@@ -28,6 +30,7 @@ public class TeamServiceTest {
 		context.refresh();
 		teams = new ArrayList<>();
 		teamService = context.getBean(TeamService.class);
+		userService = context.getBean(UserService.class);
 	}
 	
 	@Test
@@ -69,16 +72,73 @@ public class TeamServiceTest {
 	@Test
 	public void assertThatUserCanBeAddedToTeam(){
 		team = new Team("deldebabe4");
-		UserService us = context.getBean(UserService.class);
+		teamService.saveTeam(team);
+		
 		User user = new User("blabla", "userName", "firstName","lastName");
 		user.setTeam(team);
-		us.saveUser(user);
+		userService.saveUser(user);
 		assertThat("user is in team", 1, is(teamService.findTeam(team).getUsers().size()));
 	}
 	
 	@Test
-	public void assertThatAllWorkingItemsCanBeFetchedByTeam(){
+	public void assertThatAllUsersInATeamCanBeFetched(){
+		Team team1 = new Team("team1");
+		teamService.saveTeam(team1);
+		User user1 = new User("hejhej1", "userName1", "firstName1","lastName1");
+		User user2 = new User("hejhej2", "userName2", "firstName2","lastName2");
+		User user3 = new User("hejhej3", "userName3", "firstName3","lastName3");
+		user1.setTeam(team1);
+		user2.setTeam(team1);
+		user3.setTeam(team1);
+		userService.saveUser(user1);
+		userService.saveUser(user2);
+		userService.saveUser(user3);
 		
+		Team team2 = new Team("team2");
+		teamService.saveTeam(team2);
+		User user4 = new User("tjatja1", "userName11", "firstName11","lastName11");
+		User user5 = new User("tjatja2", "userName22", "firstName22","lastName22");
+		User user6 = new User("tjatja3", "userName33", "firstName33","lastName33");
+		user4.setTeam(team2);
+		user5.setTeam(team2);
+		user6.setTeam(team2);
+		userService.saveUser(user4);
+		userService.saveUser(user5);
+		userService.saveUser(user6);
+		
+		assertThat("Team2 should contain 3 members", 3, is(teamService.findUsersInTeam(team1.getId()).size()));
+	}
+	
+	@Test
+	public void assertThatAllWorkingItemsInATeamCanBeFetched(){
+		Team team3 = new Team("teamELITE");
+		team3 = teamService.saveTeam(team3);
+		User user1 = new User("hejhej111", "userName111", "firstName1","lastName1");
+		User user2 = new User("hejhej222", "userName222", "firstName2","lastName2");
+		User user3 = new User("hejhej333", "userName333", "firstName3","lastName3");
+		user1.setTeam(team3);
+		user2.setTeam(team3);
+		user3.setTeam(team3);
+		user1 = userService.saveUser(user1);
+		user2 = userService.saveUser(user2);
+		user3 = userService.saveUser(user3);
+		WorkItem w1 = new WorkItem("Task1", "Task11");
+		WorkItem w2 = new WorkItem("Task2", "Task12");
+		WorkItem w3 = new WorkItem("Task3", "Task13");
+		WorkItem w4 = new WorkItem("Task4", "Task14");
+		WorkItem w5 = new WorkItem("Task5", "Task15");
+		user1.addWorkItem(w1);
+		user1.addWorkItem(w2);
+		user2.addWorkItem(w3);
+		user3.addWorkItem(w4);
+		user3.addWorkItem(w5);
+		userService.updateUser(user1.getId(), user1);
+		userService.updateUser(user2.getId(), user2);
+		userService.updateUser(user3.getId(), user3);
+	
+		ArrayList<WorkItem> workItems = (ArrayList<WorkItem>) teamService.findWorkItemsInTeam(team3.getId());
+		workItems.forEach(System.out::println);
+		assertThat("Team2 should contain 5 work items", 5, is(teamService.findWorkItemsInTeam(team3.getId()).size()));
 	}
 	
 	@AfterClass

@@ -11,7 +11,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.models.WorkItem;
 
-public class UserServiceTest{
+public final class UserServiceTest{
 
 	private static AnnotationConfigApplicationContext context;
 	private User user;
