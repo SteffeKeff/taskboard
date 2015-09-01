@@ -15,6 +15,12 @@ public class UserService{
 	public User saveUser(User user){
 		return userRepository.save(user);
 	}
+	
+	public User updateUser(Long id, User user){
+		User oldUser = userRepository.findOne(id);
+		user.setId(oldUser.getId());
+		return userRepository.save(user);
+	}
 
 	public User findUser(String userID){
 		return userRepository.findByUserId(userID);

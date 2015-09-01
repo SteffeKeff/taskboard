@@ -15,7 +15,7 @@ public class User extends AbstractEntity{
 	@Column(name = "user_id", unique = true)
 	private String userId;
 
-	@Column(name = "user_name")
+	@Column(name = "user_name", unique = true)
 	private String userName;
 
 	@Column(name = "first_name")

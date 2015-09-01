@@ -17,5 +17,5 @@ public interface UserRepository extends CrudRepository<User, Long>{
 	
 	
 	@Transactional
-	List<User> deleteByUserId(String userId);
+	User deleteByUserId(String userId);
 }
