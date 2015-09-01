@@ -2,6 +2,7 @@ package se.eldebabe.taskboard.data.models;
 
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -24,7 +25,7 @@ public class User extends AbstractEntity{
 	@Column(name = "last_name")
 	private String lastName;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Team team;
 
 	@OneToMany
