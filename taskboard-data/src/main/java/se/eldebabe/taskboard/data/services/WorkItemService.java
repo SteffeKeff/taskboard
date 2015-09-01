@@ -32,4 +32,8 @@ public class WorkItemService {
 		return workItemRepository.findByDescriptionContaining(description);
 	}
 
+	public List<WorkItem> findWorkItemsWithIssue() {
+		return workItemRepository.findByIssueIdNotNull();
+	}
+
 }

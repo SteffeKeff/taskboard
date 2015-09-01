@@ -13,4 +13,6 @@ public interface WorkItemRepository extends CrudRepository<WorkItem, Long>{
 
 	List<WorkItem> findByDescriptionContaining(String description);
 
+	List<WorkItem> findByIssueIdNotNull();
+
 }

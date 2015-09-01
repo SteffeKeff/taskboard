@@ -1,10 +1,10 @@
 package se.eldebabe.taskboard.data.services;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertThat;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,11 +25,6 @@ public final class WorkItemServiceTest {
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh();
 		workItemService = context.getBean(WorkItemService.class);
-	}
-	
-	@Before
-	public void setup(){	
-//		workItemService = context.getBean(WorkItemService.class);
 	}
 	
 	@Test
@@ -80,16 +75,24 @@ public final class WorkItemServiceTest {
 	
 	@Test
 	public void assertThatWorkItemCanHaveAnIssue(){
-		workItem = new WorkItem("Skapa hemsida", "Lite html, lite css, gärna mycket javascript!");
+		workItem = new WorkItem("Skapa hemsida2123", "Lite html, lite css, gärna mycket javascript!");
 		Issue issue = new Issue("Jaha ja detta var ju ett issue då va");
-		workItem.addIssue(issue);
+		workItem.setIssue(issue);
 		workItemService.saveWorkItem(workItem);
-		assertThat("work item from db should have same issue as workItem", workItem.getIssues().size(), is(workItemService.findWorkItem(workItem.getId()).getIssues().size()));
+		assertThat("work item from db should have same issue as workItem", null, not(workItemService.findWorkItem(workItem.getId()).getIssue()));
 	}
 	
 	@Test
 	public void assertThatAllWorkItemWhichHasAnIssueCanBeFetched(){
-		
+		workItem = new WorkItem("Skapa hemsidaaaaaaannananan", "Lite html, lite css, gärna mycket javascript!!!wiii!");
+		WorkItem workItem2 = new WorkItem("Skapa hemsidaaaaaa", "Lite html, lite css, gärna mycket javascript!");
+		Issue issue = new Issue("Jaha ja detta var ju ett issue då va IGEN IGEN IGEN");
+		Issue issue2 = new Issue("Jaha ja detta var ju ett issue då va IGEN IGEN IGEN ooooooo");
+		workItem.setIssue(issue);
+		workItem2.setIssue(issue2);
+		workItemService.saveWorkItem(workItem);
+		workItemService.saveWorkItem(workItem2);
+		assertThat("should have two work items with issuies", 2, is(workItemService.findWorkItemsWithIssue().size()));
 	}
 	
 	@AfterClass

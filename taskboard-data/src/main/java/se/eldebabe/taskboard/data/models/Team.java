@@ -1,7 +1,9 @@
 package se.eldebabe.taskboard.data.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,13 +17,15 @@ public class Team extends AbstractEntity{
 	@Column(name = "name")
 	private String name;
 
-	@OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+	
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
 	private Collection<User> users;
 
 	protected Team(){}
 
 	public Team(String teamName){
 		this.name = teamName;
+		users = new ArrayList<>();
 	}
 
 	public String getName(){
@@ -31,6 +35,10 @@ public class Team extends AbstractEntity{
 	public User addUser(User user){
 		users.add(user);
 		return user;
+	}
+	
+	public Collection<User> getUsers(){
+		return users;
 	}
 
 }
