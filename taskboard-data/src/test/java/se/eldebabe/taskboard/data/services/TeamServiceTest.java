@@ -64,6 +64,8 @@ public class TeamServiceTest {
 		assertThat("Team count matches", 4, is(teams.size()));
 	}
 	
+	/*//// These tests has relations ////*/
+	
 	@Test
 	public void assertThatUserCanBeAddedToTeam(){
 		team = new Team("deldebabe4");
@@ -72,6 +74,11 @@ public class TeamServiceTest {
 		user.setTeam(team);
 		us.saveUser(user);
 		assertThat("user is in team", 1, is(teamService.findTeam(team).getUsers().size()));
+	}
+	
+	@Test
+	public void assertThatAllWorkingItemsCanBeFetchedByTeam(){
+		
 	}
 	
 	@AfterClass

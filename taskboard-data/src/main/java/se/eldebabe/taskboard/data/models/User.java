@@ -1,10 +1,12 @@
 package se.eldebabe.taskboard.data.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -28,7 +30,7 @@ public class User extends AbstractEntity{
 	@ManyToOne(cascade = CascadeType.PERSIST)
 	private Team team;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	private Collection<WorkItem> workItems;
 
 	protected User(){
@@ -39,6 +41,7 @@ public class User extends AbstractEntity{
 		this.userName = userName;
 		this.firstName = firstName;
 		this.lastName = lastName;
+		workItems = new ArrayList<>();
 	}
 
 	public String getUserId(){
