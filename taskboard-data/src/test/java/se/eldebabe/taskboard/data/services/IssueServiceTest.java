@@ -38,8 +38,7 @@ public class IssueServiceTest{
 	@Test
 	public void assertThatIssueIsGettable(){
 		issueService.saveIssue(issue);
-		issueService.findIssueById(issue.getId());
-		assertThat("issueService should find issue", issue, is(issueService.findIssueById(issue.getId())));
+		assertThat("issueService should find issue", 1L, is(issueService.findIssueById(1L).getId()));
 	}
 
 	@Test
