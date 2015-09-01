@@ -9,13 +9,14 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import se.eldebabe.taskboard.data.models.Issue;
 import se.eldebabe.taskboard.data.models.Status;
 import se.eldebabe.taskboard.data.models.WorkItem;
 
 public final class WorkItemServiceTest {
 
 	private static AnnotationConfigApplicationContext context;
-	private WorkItemService workItemService;
+	private static WorkItemService workItemService;
 	private WorkItem workItem;
 	
 	@BeforeClass
@@ -23,21 +24,24 @@ public final class WorkItemServiceTest {
 		context = new AnnotationConfigApplicationContext();
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh();
+		workItemService = context.getBean(WorkItemService.class);
 	}
 	
 	@Before
-	public void setup(){
-		workItem = new WorkItem("Skapa hemsida", "Lite html, lite css, gärna mycket javascript!");
-		workItemService = context.getBean(WorkItemService.class);
+	public void setup(){	
+//		workItemService = context.getBean(WorkItemService.class);
 	}
 	
 	@Test
 	public void assertThatWorkItemIsSavable(){
+		workItem = new WorkItem("Skapa hemsida1111", "Lite html, lite css, gärna mycket javascript!");
 		assertThat("Added WorkItem should be returned", workItem, is(workItemService.saveWorkItem(workItem)));
 	}
 	
 	@Test
 	public void assertThatWorkItemStatusCanBeChanged(){
+		workItem = new WorkItem("Skapa hemsida2222", "Lite html, lite css, gärna mycket javascript!");
+		workItem = workItemService.saveWorkItem(workItem);
 		workItem.setCompleted(se.eldebabe.taskboard.data.models.Status.IN_PROGRESS);
 		workItemService.saveWorkItem(workItem);
 		assertThat("WorkItem status should be true", se.eldebabe.taskboard.data.models.Status.IN_PROGRESS, is(workItemService.findWorkItem(workItem.getId()).getStatus()));
@@ -45,6 +49,7 @@ public final class WorkItemServiceTest {
 	
 	@Test
 	public void assertThatWorkItemCanBeDeleted(){
+		workItem = new WorkItem("Skapa hemsida3333", "Lite html, lite css, gärna mycket javascript!");
 		workItemService.saveWorkItem(workItem);
 		workItemService.deleteWorkItem(workItem.getId());
 		assertThat("workItemService cant find work item", null, is(workItemService.findWorkItem(workItem.getId())));
@@ -69,6 +74,22 @@ public final class WorkItemServiceTest {
 		WorkItem i1 = new WorkItem("theWorkItem","can you find this workitem");
 		workItemService.saveWorkItem(i1);
 		assertThat("There should be one work item containing description 'this workitem'", 1, is(workItemService.findWorkItemWithDescriptionContaining("this workitem").size()));
+	}
+	
+	/*//// These test have relations ////*/
+	
+	@Test
+	public void assertThatWorkItemCanHaveAnIssue(){
+		workItem = new WorkItem("Skapa hemsida", "Lite html, lite css, gärna mycket javascript!");
+		Issue issue = new Issue("Jaha ja detta var ju ett issue då va");
+		workItem.addIssue(issue);
+		workItemService.saveWorkItem(workItem);
+		assertThat("work item from db should have same issue as workItem", workItem.getIssues().size(), is(workItemService.findWorkItem(workItem.getId()).getIssues().size()));
+	}
+	
+	@Test
+	public void assertThatAllWorkItemWhichHasAnIssueCanBeFetched(){
+		
 	}
 	
 	@AfterClass

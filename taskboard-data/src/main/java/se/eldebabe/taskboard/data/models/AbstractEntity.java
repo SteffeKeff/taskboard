@@ -15,6 +15,10 @@ public abstract class AbstractEntity{
 		return id;
 	}
 
-	protected AbstractEntity(){}
+	public void setId(Long id){
+		this.id = id;
+	}
 
+	protected AbstractEntity(){
+	}
 }

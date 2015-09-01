@@ -21,4 +21,8 @@ public class Issue extends AbstractEntity{
 		return description;
 	}
 
+	public void setDescription(String description){
+		this.description = description;
+	}
+
 }

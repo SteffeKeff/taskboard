@@ -3,10 +3,12 @@ package se.eldebabe.taskboard.data.models;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,7 +26,7 @@ public class WorkItem extends AbstractEntity{
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Collection<Issue> issues;
 	
 	protected WorkItem(){}

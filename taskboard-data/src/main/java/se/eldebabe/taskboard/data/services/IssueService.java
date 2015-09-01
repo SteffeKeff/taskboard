@@ -14,6 +14,10 @@ public class IssueService {
 		return issueRepository.save(issue);
 	}
 	
+	public Issue findIssueById(Long id){
+		return issueRepository.findOne(id);
+	}
+	
 	public Issue deleteIssue(Issue issue){
 		issueRepository.delete(issue);
 		return issue;
