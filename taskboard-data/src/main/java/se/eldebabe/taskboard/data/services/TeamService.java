@@ -7,12 +7,14 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import se.eldebabe.taskboard.data.models.Team;
+import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.repositories.TeamRepository;
 
 public class TeamService {
 
 	@Autowired
 	private TeamRepository teamRepository;
+	
 	
 	@Transactional
 	public Team saveTeam(Team team){
@@ -37,6 +39,12 @@ public class TeamService {
 
 	public List<Team> findAllTeams(){
 		return (List<Team>) teamRepository.findAll();
+	}
+	
+	@Transactional
+	public Team addUserToTeam(User user, Team team){
+		team.addUser(user);
+		return updateTeam(team); 
 	}
 	
 }
