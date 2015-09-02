@@ -17,14 +17,14 @@ public class TeamWebService {
 	}
 	
 	@PUT
-	public Response addUser() {
+	public Response addTeam() {
 		return null;
 
 	}
 	
 	@DELETE
 	@Path("{name}")
-	public final Response deleteUser(@PathParam("name") final String name) {
+	public final Response deleteTeam(@PathParam("name") final String name) {
 		return null;
 	}
 
