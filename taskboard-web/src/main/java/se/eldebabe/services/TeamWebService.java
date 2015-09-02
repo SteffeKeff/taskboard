@@ -8,7 +8,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 @Path("teams")
-public class WebTeamService {
+public class TeamWebService {
 	
 	@GET
 	public Response getAllTeams()

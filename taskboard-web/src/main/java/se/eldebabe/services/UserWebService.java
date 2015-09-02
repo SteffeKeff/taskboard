@@ -14,7 +14,7 @@ import javax.ws.rs.core.Response;
 @Path("users")
 @Produces({javax.ws.rs.core.MediaType.APPLICATION_JSON})
 @Consumes({javax.ws.rs.core.MediaType.APPLICATION_JSON})
-public class WebUserService{
+public class UserWebService{
 
 	@GET
 	public Response getAllUsers()

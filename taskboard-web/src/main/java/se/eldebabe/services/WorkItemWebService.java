@@ -4,7 +4,7 @@ import javax.ws.rs.Path;
 
 
 @Path("workItems")
-public class WebWorkItemService {
+public class WorkItemWebService {
 	
 
 
