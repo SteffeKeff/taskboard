@@ -1,10 +1,9 @@
 package se.eldebabe.taskboard.data.services;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
 
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -14,7 +13,7 @@ import se.eldebabe.taskboard.data.models.Issue;
 public final class IssueServiceTest{
 
 	private static AnnotationConfigApplicationContext context;
-	private IssueService issueService;
+	private static IssueService issueService;
 	private Issue issue;
 
 	@BeforeClass
@@ -22,33 +21,26 @@ public final class IssueServiceTest{
 		context = new AnnotationConfigApplicationContext();
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh();
-	}
-
-	@Before
-	public void setup(){
-		issue = new Issue("Förlängd leveranstid till 6/9-15");
 		issueService = context.getBean(IssueService.class);
 	}
 
 	@Test
 	public void assertThatIssueIsSavable(){
+		issue = new Issue("Förlängd leveranstid till 6/9-15");
 		assertThat("Added Issue should be returned", issue, is(issueService.saveIssue(issue)));
 	}
 
 	@Test
 	public void assertThatIssueIsGettable(){
+		issue = new Issue("Du glömde pusha css");
 		issueService.saveIssue(issue);
 		assertThat("issueService should find issue", 1L, is(issueService.findIssueById(1L).getId()));
 	}
 	
-	@Test 
-	public void assertThatIssueIsNotGettable(){
-		assertThat("", null, is(issueService.findIssueById(5L)));
-	}
-	
 	@Test
 	public void assertThatIssueCanBeUpdated(){
-		issueService.saveIssue(issue);
+		issue = new Issue("Använd hellre JQuery än vanlig Javascript");
+		issue = issueService.saveIssue(issue);
 		issue.setDescription("Förlängd leveranstid till 18/9-15");
 		issueService.saveIssue(issue);
 		assertThat("", issue.getDescription(), is(issueService.findIssueById(1L).getDescription()));
@@ -56,13 +48,12 @@ public final class IssueServiceTest{
 
 	@Test
 	public void assertThatIssueCanBeDeleted(){
+		issue = new Issue("Problem med databasen");
 		issueService.saveIssue(issue);
 		issueService.deleteIssue(issue);
 		assertThat("issueService must not find issue", null, is(issueService.findIssueById(issue.getId())));
 	}
 	
-	//uppdatera. se till att det smäller fint då idt inte finns
-
 	@AfterClass
 	public static void tearDown(){
 		context.close();

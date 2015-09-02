@@ -1,7 +1,7 @@
 package se.eldebabe.taskboard.data.services;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -49,15 +49,13 @@ public class TeamService {
 	}
 
 	public Collection<User> findUsersInTeam(Long id) {
-		System.out.println("id: " + id);
 		return teamRepository.findOne(id).getUsers();
 	}
 
 	public Collection<WorkItem> findWorkItemsInTeam(Long id) {
 		Collection<User> users = findUsersInTeam(id);
-		Collection<WorkItem> workItems = new ArrayList<>(); 
+		Collection<WorkItem> workItems = new HashSet<>(); 
 		for(User user : users) {
-			System.out.println(user.getUserName());
 			for(WorkItem workItem: user.getWorkItems()){
 				workItems.add(workItem);
 			}
