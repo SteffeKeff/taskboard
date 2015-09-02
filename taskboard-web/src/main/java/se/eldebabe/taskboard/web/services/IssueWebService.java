@@ -1,6 +1,10 @@
 package se.eldebabe.taskboard.web.services;
 
+import java.net.URI;
+
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
@@ -19,6 +23,14 @@ public final class IssueWebService{
 	@Context
 	public UriInfo uriInfo;
 
+	@POST
+	public final Response saveIssue(Issue issue)
+	{
+		issue = issueService.saveIssue(issue);
+		final URI location = uriInfo.getAbsolutePathBuilder().path(issue.getId().toString()).build();
+		return Response.created(location).build();
+	}
+	
 	@GET
 	@Path("{issueId}")
 	public final Response getIssue(@PathParam("issueId") final Long id){
@@ -27,6 +39,17 @@ public final class IssueWebService{
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		return Response.ok(issue).build();
+	}
+	
+	@DELETE
+	@Path("{issueId}")
+	public final Response deleteIssue(@PathParam("issueId") final Long id)
+	{
+		Issue issue = issueService.findIssueById(id);
+		if(issue == null) {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+		return Response.ok(issueService.deleteIssue(issue)).build();
 	}
 
 }
