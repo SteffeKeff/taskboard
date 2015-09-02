@@ -1,4 +1,4 @@
-package se.eldebabe.services;
+package se.eldebabe.taskboard.web.services;
 
 import javax.ws.rs.Path;
 

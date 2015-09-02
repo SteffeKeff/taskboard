@@ -1,4 +1,4 @@
-package se.eldebabe;
+package se.eldebabe.taskboard.web;
 
 
 public class Main{
