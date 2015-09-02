@@ -84,9 +84,9 @@ public final class TeamServiceTest {
 	public void assertThatAllUsersInATeamCanBeFetched(){
 		Team team1 = new Team("team1");
 		teamService.saveTeam(team1);
-		User user1 = new User("hejhej1", "userName1", "firstName1","lastName1");
-		User user2 = new User("hejhej2", "userName2", "firstName2","lastName2");
-		User user3 = new User("hejhej3", "userName3", "firstName3","lastName3");
+		User user1 = new User("hejhej1", "userName1", "firstName77","lastName77");
+		User user2 = new User("hejhej2", "userName2", "firstName88","lastName88");
+		User user3 = new User("hejhej3", "userName3", "firstName99","lastName99");
 		user1.setTeam(team1);
 		user2.setTeam(team1);
 		user3.setTeam(team1);
@@ -113,9 +113,9 @@ public final class TeamServiceTest {
 	public void assertThatAllWorkingItemsInATeamCanBeFetched(){
 		Team team3 = new Team("teamELITE");
 		team3 = teamService.saveTeam(team3);
-		User user1 = new User("hejhej111", "userName111", "firstName1","lastName1");
-		User user2 = new User("hejhej222", "userName222", "firstName2","lastName2");
-		User user3 = new User("hejhej333", "userName333", "firstName3","lastName3");
+		User user1 = new User("hejhej111", "userName111", "firstName777","lastName777");
+		User user2 = new User("hejhej222", "userName222", "firstName888","lastName888");
+		User user3 = new User("hejhej333", "userName333", "firstName999","lastName999");
 		user1.setTeam(team3);
 		user2.setTeam(team3);
 		user3.setTeam(team3);
@@ -136,8 +136,6 @@ public final class TeamServiceTest {
 		userService.updateUser(user2.getId(), user2);
 		userService.updateUser(user3.getId(), user3);
 	
-		ArrayList<WorkItem> workItems = (ArrayList<WorkItem>) teamService.findWorkItemsInTeam(team3.getId());
-		workItems.forEach(System.out::println);
 		assertThat("Team2 should contain 5 work items", 5, is(teamService.findWorkItemsInTeam(team3.getId()).size()));
 	}
 	
