@@ -30,7 +30,7 @@ public class User extends AbstractEntity{
 	@ManyToOne
 	private Team team;
 
-	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
 	private Collection<WorkItem> workItems;
 
 	protected User(){
