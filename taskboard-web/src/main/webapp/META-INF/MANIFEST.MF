@@ -20,5 +20,10 @@ Class-Path: javax.ws.rs-api-2.0.1.jar mysql-connector-java-5.1.36.jar
  ver-2.21.jar jersey-client-2.21.jar jersey-media-jaxb-2.21.jar valida
  tion-api-1.1.0.Final.jar org.eclipse.persistence.moxy-2.5.2.jar org.e
  clipse.persistence.core-2.5.2.jar org.eclipse.persistence.asm-2.5.2.j
- ar org.eclipse.persistence.antlr-2.5.2.jar
+ ar org.eclipse.persistence.antlr-2.5.2.jar json-io-2.2.29.jar jersey-
+ server-1.8.jar asm-3.1.jar jersey-core-1.8.jar jersey-json-1.8.jar je
+ ttison-1.1.jar stax-api-1.0.1.jar jaxb-impl-2.2.3-1.jar jaxb-api-2.2.
+ 2.jar stax-api-1.0-2.jar activation-1.1.jar jackson-core-asl-1.7.1.ja
+ r jackson-mapper-asl-1.7.1.jar jackson-jaxrs-1.7.1.jar jackson-xc-1.7
+ .1.jar
 

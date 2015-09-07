@@ -1,29 +1,30 @@
 package se.eldebabe.taskboard.web.services;
 
-import org.eclipse.persistence.jaxb.MarshallerProperties;
-
-import java.net.URI;
-
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriInfo;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import javax.ws.rs.core.UriInfo;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import com.cedarsoftware.util.io.JsonWriter;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import se.eldebabe.taskboard.data.models.Issue;
 import se.eldebabe.taskboard.data.services.IssueService;
 
 @Path("issues")
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
 public final class IssueWebService{
 
 	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
@@ -33,33 +34,43 @@ public final class IssueWebService{
 	public UriInfo uriInfo;
 
 	@POST
-	public final Response saveIssue(Issue issue)
+	public final Response saveIssue(String description)
 	{
+		context.scan("se.eldebabe.taskboard.data.configs");
+		context.refresh(); 
+		issueService = context.getBean(IssueService.class);
+		
+		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
+		String desc = jo.get("description").getAsString();
+		Issue issue = new Issue(desc);
+		
 		issue = issueService.saveIssue(issue);
-		final URI location = uriInfo.getAbsolutePathBuilder().path(issue.getId().toString()).build();
-		return Response.created(location).build();
+		if(null != issue){			
+			return Response.ok(JsonWriter.toJson(issue)).build();
+		}else{
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+		
+//		issue = issueService.saveIssue(issue);
+//		final URI location = uriInfo.getAbsolutePathBuilder().path(issue.getId().toString()).build();
+//		return Response.created(location).build();
 	}
 	
 	@GET
 	@Path("{issueId}")
-	public final Response getIssue(@PathParam("issueId") final Long id) throws JAXBException{
+	public final Response getIssue(@PathParam("issueId") final Long id){
 		
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh(); 
 		issueService = context.getBean(IssueService.class);
 		
-		Issue issue = new Issue("ett problem");
-		JAXBContext jc;
-		jc = JAXBContext.newInstance(Issue.class);
-		Marshaller marshaller = jc.createMarshaller();
-
-
+		Issue issue = issueService.findIssueById(id);
 		
-//		Issue issue = issueService.findIssueById(id);
-//		if(issue == null) {
-//			return Response.status(Status.NOT_FOUND).build();
-//		}
-//		return Response.ok(issue).build();
+		if(null != issue){
+			return Response.ok(JsonWriter.toJson(issue)).build();
+		}else{
+			return Response.noContent().build();
+		}
 	}
 	
 	@DELETE

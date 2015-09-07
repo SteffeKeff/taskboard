@@ -42,6 +42,8 @@ public final class TeamServiceTest {
 	@Test
 	public void assertThatTeamCanBeDeleted(){
 		team = new Team("deldebabe1");
+		User user = new User("id", "name", "firstname", "lastname");
+		team.addUser(user);
 		teamService.saveTeam(team);
 		teamService.deleteTeam(team);
 		assertThat("teamService cant find team", null, is(teamService.findTeam(team)));
