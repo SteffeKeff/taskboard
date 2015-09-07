@@ -29,18 +29,19 @@ public class TeamWebService {
 	@GET
 	public Response getAllTeams()
 	{
-		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
-		teamService = context.getBean(TeamService.class);
-		
-		List<Team> teams = teamService.findAllTeams();
-		if(teams == null || teams.size() == 0) {
-			return Response.status(Status.NOT_FOUND).build();
-		}else{
-			teams.forEach(System.out::println);
-		}
-		shit = gson.toJson(teams.get(0),  Team.class);
-		return Response.ok(shit).build();
+		return Response.ok("hej!").build();
+//		context.scan("se.eldebabe.taskboard.data.configs");
+//		context.refresh(); 
+//		teamService = context.getBean(TeamService.class);
+//		
+//		List<Team> teams = teamService.findAllTeams();
+//		if(teams == null || teams.size() == 0) {
+//			return Response.status(Status.NOT_FOUND).build();
+//		}else{
+//			teams.forEach(System.out::println);
+//		}
+//		shit = gson.toJson(teams.get(0),  Team.class);
+//		return Response.ok(shit).build();
 	}
 	
 	@PUT

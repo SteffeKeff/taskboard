@@ -4,9 +4,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import se.eldebabe.taskboard.data.models.Team;
 import se.eldebabe.taskboard.data.models.User;

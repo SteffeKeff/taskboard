@@ -3,9 +3,11 @@ package se.eldebabe.taskboard.data.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "issues")
+@XmlRootElement
 public class Issue extends AbstractEntity{
 
 	@Column

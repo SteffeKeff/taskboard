@@ -2,9 +2,8 @@ package se.eldebabe.taskboard.data.repositories;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import se.eldebabe.taskboard.data.models.User;
 

@@ -18,5 +18,7 @@ Class-Path: javax.ws.rs-api-2.0.1.jar mysql-connector-java-5.1.36.jar
  -b31.jar hk2-utils-2.4.0-b31.jar aopalliance-repackaged-2.4.0-b31.jar
   hk2-locator-2.4.0-b31.jar osgi-resource-locator-1.0.1.jar jersey-ser
  ver-2.21.jar jersey-client-2.21.jar jersey-media-jaxb-2.21.jar valida
- tion-api-1.1.0.Final.jar
+ tion-api-1.1.0.Final.jar org.eclipse.persistence.moxy-2.5.2.jar org.e
+ clipse.persistence.core-2.5.2.jar org.eclipse.persistence.asm-2.5.2.j
+ ar org.eclipse.persistence.antlr-2.5.2.jar
 
