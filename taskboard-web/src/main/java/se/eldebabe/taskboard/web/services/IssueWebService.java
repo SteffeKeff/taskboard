@@ -30,10 +30,10 @@ public final class IssueWebService{
 
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static IssueService issueService = new IssueService();
-	
+
 	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
+		context.refresh();
 		issueService = context.getBean(IssueService.class);
 	}
 
@@ -41,57 +41,57 @@ public final class IssueWebService{
 	public UriInfo uriInfo;
 
 	@POST
-	public final Response saveIssue(final String description)
-	{
-		
+	public final Response saveIssue(final String description){
+
 		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
 		String desc = jo.get("description").getAsString();
 		Issue issue = new Issue(desc);
-		
+
 		issue = issueService.saveIssue(issue);
-		if(null != issue){			
-			return Response.ok(JsonWriter.toJson(issue)).header("Location", uriInfo.getPath() + "/" + issue.getId().toString()).build();
+		if(null != issue) {
+			return Response.ok(JsonWriter.toJson(issue))
+					.header("Location", uriInfo.getPath() + "/" + issue.getId().toString()).build();
 		}else{
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-	
+
 	@GET
 	@Path("{issueId}")
 	public final Response getIssue(@PathParam("issueId") final Long id){
 
 		Issue issue = issueService.findIssueById(id);
-		
-		if(null != issue){
+
+		if(null != issue) {
 			return Response.ok(JsonWriter.toJson(issue)).build();
 		}else{
 			return Response.noContent().build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("{issueId}")
 	public final Response deleteIssue(@PathParam("issueId") final Long id)
 	{
-		Issue issue = issueService.deleteIssue(id);
+		Issue issue = issueService.findIssueById(id);
+		issue = issueService.deleteIssue(issue);
 		if(null != issue) {
 			return Response.ok(JsonWriter.toJson(issue)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
-	
+
 	@PUT
 	@Path("{issueId}")
-	public final Response updateIssue(@PathParam("issueId") final Long id, final String description)
-	{
+	public final Response updateIssue(@PathParam("issueId") final Long id, final String description){
 		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
 		String desc = jo.get("description").getAsString();
 		Issue issue = new Issue(desc);
 		issue.setId(id);
-		
+
 		issue = issueService.updateIssue(issue);
-		if(null != issue){			
+		if(null != issue) {
 			return Response.ok(JsonWriter.toJson(issue)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
