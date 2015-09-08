@@ -26,4 +26,13 @@ public class IssueService {
 		}
 		return issue;
 	}
+
+	public Issue updateIssue(Issue newIssue) {
+		Issue oldIssue = issueRepository.findOne(newIssue.getId());
+		if(null != oldIssue){
+			return issueRepository.save(newIssue);
+		}else{
+			return oldIssue;
+		}
+	}
 }

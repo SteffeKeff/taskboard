@@ -90,11 +90,11 @@ public final class IssueWebService{
 		Issue issue = new Issue(desc);
 		issue.setId(id);
 		
-		issue = issueService.saveIssue(issue);
+		issue = issueService.updateIssue(issue);
 		if(null != issue){			
 			return Response.ok(JsonWriter.toJson(issue)).build();
 		}else{
-			return Response.status(Status.BAD_REQUEST).build();
+			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
 
