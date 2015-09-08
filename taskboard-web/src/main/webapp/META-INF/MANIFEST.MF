@@ -1,29 +1,22 @@
 Manifest-Version: 1.0
-Class-Path: javax.ws.rs-api-2.0.1.jar mysql-connector-java-5.1.36.jar 
- gson-2.3.1.jar taskboard.jar spring-data-jpa-1.8.2.RELEASE.jar spring
- -data-commons-1.10.2.RELEASE.jar spring-core-4.0.9.RELEASE.jar spring
- -beans-4.0.9.RELEASE.jar slf4j-api-1.7.12.jar jcl-over-slf4j-1.7.12.j
- ar spring-orm-4.0.9.RELEASE.jar spring-jdbc-4.0.9.RELEASE.jar spring-
- tx-4.0.9.RELEASE.jar spring-context-4.0.9.RELEASE.jar spring-aop-4.0.
- 9.RELEASE.jar aopalliance-1.0.jar spring-expression-4.0.9.RELEASE.jar
-  aspectjrt-1.8.6.jar hibernate-entitymanager-4.3.10.Final.jar jboss-l
- ogging-3.1.3.GA.jar jboss-logging-annotations-1.2.0.Beta1.jar hiberna
- te-core-4.3.10.Final.jar jboss-transaction-api_1.2_spec-1.0.0.Final.j
- ar dom4j-1.6.1.jar xml-apis-1.0.b2.jar hibernate-commons-annotations-
- 4.0.5.Final.jar hibernate-jpa-2.1-api-1.0.0.Final.jar javassist-3.18.
- 1-GA.jar antlr-2.7.7.jar jandex-1.1.0.Final.jar HikariCP-2.3.9.jar co
- mmons-lang3-3.4.jar jersey-container-servlet-2.21.jar jersey-containe
- r-servlet-core-2.21.jar javax.inject-2.4.0-b31.jar jersey-common-2.21
- .jar javax.annotation-api-1.2.jar jersey-guava-2.21.jar hk2-api-2.4.0
- -b31.jar hk2-utils-2.4.0-b31.jar aopalliance-repackaged-2.4.0-b31.jar
-  hk2-locator-2.4.0-b31.jar osgi-resource-locator-1.0.1.jar jersey-ser
- ver-2.21.jar jersey-client-2.21.jar jersey-media-jaxb-2.21.jar valida
- tion-api-1.1.0.Final.jar org.eclipse.persistence.moxy-2.5.2.jar org.e
- clipse.persistence.core-2.5.2.jar org.eclipse.persistence.asm-2.5.2.j
- ar org.eclipse.persistence.antlr-2.5.2.jar json-io-2.2.29.jar jersey-
- server-1.8.jar asm-3.1.jar jersey-core-1.8.jar jersey-json-1.8.jar je
- ttison-1.1.jar stax-api-1.0.1.jar jaxb-impl-2.2.3-1.jar jaxb-api-2.2.
- 2.jar stax-api-1.0-2.jar activation-1.1.jar jackson-core-asl-1.7.1.ja
- r jackson-mapper-asl-1.7.1.jar jackson-jaxrs-1.7.1.jar jackson-xc-1.7
- .1.jar
+Class-Path: jersey-container-servlet-core-2.16.jar javax.inject-2.4.0-
+ b09.jar jersey-common-2.16.jar javax.ws.rs-api-2.0.1.jar javax.annota
+ tion-api-1.2.jar jersey-guava-2.16.jar hk2-api-2.4.0-b09.jar hk2-util
+ s-2.4.0-b09.jar aopalliance-repackaged-2.4.0-b09.jar hk2-locator-2.4.
+ 0-b09.jar javassist-3.18.1-GA.jar osgi-resource-locator-1.0.1.jar jer
+ sey-server-2.16.jar jersey-client-2.16.jar jersey-media-jaxb-2.16.jar
+  validation-api-1.1.0.Final.jar gson-2.3.1.jar taskboard.jar spring-d
+ ata-jpa-1.8.2.RELEASE.jar spring-data-commons-1.10.2.RELEASE.jar spri
+ ng-core-4.0.9.RELEASE.jar spring-beans-4.0.9.RELEASE.jar slf4j-api-1.
+ 7.12.jar jcl-over-slf4j-1.7.12.jar spring-orm-4.0.9.RELEASE.jar sprin
+ g-jdbc-4.0.9.RELEASE.jar spring-tx-4.0.9.RELEASE.jar spring-context-4
+ .0.9.RELEASE.jar spring-aop-4.0.9.RELEASE.jar aopalliance-1.0.jar spr
+ ing-expression-4.0.9.RELEASE.jar aspectjrt-1.8.6.jar hibernate-entity
+ manager-4.3.10.Final.jar jboss-logging-3.1.3.GA.jar jboss-logging-ann
+ otations-1.2.0.Beta1.jar hibernate-core-4.3.10.Final.jar jboss-transa
+ ction-api_1.2_spec-1.0.0.Final.jar dom4j-1.6.1.jar xml-apis-1.0.b2.ja
+ r hibernate-commons-annotations-4.0.5.Final.jar hibernate-jpa-2.1-api
+ -1.0.0.Final.jar antlr-2.7.7.jar jandex-1.1.0.Final.jar HikariCP-2.3.
+ 9.jar mysql-connector-java-5.1.36.jar commons-lang3-3.4.jar json-io-2
+ .2.29.jar
 
