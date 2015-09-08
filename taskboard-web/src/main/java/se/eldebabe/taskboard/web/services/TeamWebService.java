@@ -7,6 +7,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
@@ -18,30 +19,29 @@ import se.eldebabe.taskboard.data.models.Team;
 import se.eldebabe.taskboard.data.services.TeamService;
 
 @Path("teams")
+@Produces({javax.ws.rs.core.MediaType.APPLICATION_JSON})
 public class TeamWebService {
 	
 	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private TeamService teamService;
 	Gson gson = new Gson();
-	String shit;
 	
 	
 	@GET
 	public Response getAllTeams()
 	{
-		return Response.ok("hej!").build();
-//		context.scan("se.eldebabe.taskboard.data.configs");
-//		context.refresh(); 
-//		teamService = context.getBean(TeamService.class);
-//		
-//		List<Team> teams = teamService.findAllTeams();
-//		if(teams == null || teams.size() == 0) {
-//			return Response.status(Status.NOT_FOUND).build();
-//		}else{
-//			teams.forEach(System.out::println);
-//		}
-//		shit = gson.toJson(teams.get(0),  Team.class);
-//		return Response.ok(shit).build();
+		context.scan("se.eldebabe.taskboard.data.configs");
+		context.refresh(); 
+		teamService = context.getBean(TeamService.class);
+		
+		List<Team> teams = teamService.findAllTeams();
+		if(teams == null || teams.size() == 0) {
+			return Response.status(Status.NOT_FOUND).build();
+		}else{
+			teams.forEach(System.out::println);
+		}
+		
+		return Response.ok(teams.get(0).toString()).build();
 	}
 	
 	@PUT
@@ -53,7 +53,13 @@ public class TeamWebService {
 	@DELETE
 	@Path("{name}")
 	public final Response deleteTeam(@PathParam("name") final String name) {
-		return null;
+		context.scan("se.eldebabe.taskboard.data.configs");
+		context.refresh(); 
+		teamService = context.getBean(TeamService.class);
+		System.out.println(name);
+		
+		teamService.deleteByName(name);
+		return Response.ok(name).build();
 	}
 
 }

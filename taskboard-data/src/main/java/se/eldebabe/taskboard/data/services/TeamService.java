@@ -23,13 +23,18 @@ public class TeamService {
 	}
 	
 	@Transactional
+	public void deleteByName(String name){
+		teamRepository.deleteByName(name);
+	}
+	
+	@Transactional
 	public Team deleteTeam(Team team){
 		teamRepository.delete(team.getId());
 		return team;
 	}
 	
-	public Team findTeam(Team team){
-		return teamRepository.findOne(team.getId());
+	public List<Team> findTeam(String name){
+		return teamRepository.findByName(name);
 	}
 	
 	@Transactional

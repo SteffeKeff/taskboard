@@ -46,7 +46,7 @@ public final class TeamServiceTest {
 		team.addUser(user);
 		teamService.saveTeam(team);
 		teamService.deleteTeam(team);
-		assertThat("teamService cant find team", null, is(teamService.findTeam(team)));
+		assertThat("teamService cant find team", null, is(teamService.findTeam(team.getName())));
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public final class TeamServiceTest {
 		User user = new User("blabla", "userName", "firstName","lastName");
 		user.setTeam(team);
 		userService.saveUser(user);
-		assertThat("user is in team", 1, is(teamService.findTeam(team).getUsers().size()));
+		assertThat("user is in team", 1, is(teamService.findTeam(team.getName()).get(0).getUsers().size()));
 	}
 	
 	@Test
