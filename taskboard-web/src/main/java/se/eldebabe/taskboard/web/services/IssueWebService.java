@@ -58,10 +58,8 @@ public final class IssueWebService{
 	@GET
 	@Path("{issueId}")
 	public final Response getIssue(@PathParam("issueId") final Long id){
-		
+
 		Issue issue = issueService.findIssueById(id);
-		System.out.println(issueService);
-		System.out.println(issue);
 		
 		if(null != issue){
 			return Response.ok(JsonWriter.toJson(issue)).build();
