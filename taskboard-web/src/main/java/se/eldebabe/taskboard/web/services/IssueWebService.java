@@ -27,8 +27,14 @@ import se.eldebabe.taskboard.data.services.IssueService;
 @Produces(MediaType.APPLICATION_JSON)
 public final class IssueWebService{
 
-	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private IssueService issueService = new IssueService();
+	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static IssueService issueService = new IssueService();
+	
+	static{
+		context.scan("se.eldebabe.taskboard.data.configs");
+		context.refresh(); 
+		issueService = context.getBean(IssueService.class);
+	}
 
 	@Context
 	public UriInfo uriInfo;
@@ -36,9 +42,7 @@ public final class IssueWebService{
 	@POST
 	public final Response saveIssue(String description)
 	{
-		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
-		issueService = context.getBean(IssueService.class);
+		
 		
 		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
 		String desc = jo.get("description").getAsString();
@@ -51,18 +55,12 @@ public final class IssueWebService{
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		
-//		issue = issueService.saveIssue(issue);
-//		final URI location = uriInfo.getAbsolutePathBuilder().path(issue.getId().toString()).build();
-//		return Response.created(location).build();
 	}
 	
 	@GET
 	@Path("{issueId}")
 	public final Response getIssue(@PathParam("issueId") final Long id){
-		
-		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
-		issueService = context.getBean(IssueService.class);
+
 		
 		Issue issue = issueService.findIssueById(id);
 		

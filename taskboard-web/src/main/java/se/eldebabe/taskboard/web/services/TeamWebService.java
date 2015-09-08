@@ -22,18 +22,21 @@ import se.eldebabe.taskboard.data.services.TeamService;
 @Produces({javax.ws.rs.core.MediaType.APPLICATION_JSON})
 public class TeamWebService {
 	
-	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private TeamService teamService;
+	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+	private static TeamService teamService;
 	Gson gson = new Gson();
 	
-	
-	@GET
-	public Response getAllTeams()
-	{
+	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh(); 
 		teamService = context.getBean(TeamService.class);
 		
+	}
+	
+	@GET
+	public Response getAllTeams()
+	{
+	
 		List<Team> teams = teamService.findAllTeams();
 		if(teams == null || teams.size() == 0) {
 			return Response.status(Status.NOT_FOUND).build();
@@ -53,9 +56,7 @@ public class TeamWebService {
 	@DELETE
 	@Path("{name}")
 	public final Response deleteTeam(@PathParam("name") final String name) {
-		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
-		teamService = context.getBean(TeamService.class);
+		
 		System.out.println(name);
 		
 		teamService.deleteByName(name);
