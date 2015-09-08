@@ -4,6 +4,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -40,7 +41,7 @@ public final class IssueWebService{
 	public UriInfo uriInfo;
 
 	@POST
-	public final Response saveIssue(String description)
+	public final Response saveIssue(final String description)
 	{
 		
 		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
@@ -49,7 +50,7 @@ public final class IssueWebService{
 		
 		issue = issueService.saveIssue(issue);
 		if(null != issue){			
-			return Response.ok(JsonWriter.toJson(issue)).build();
+			return Response.ok(JsonWriter.toJson(issue)).header("Location", uriInfo.getPath() + "/" + issue.getId().toString()).build();
 		}else{
 			return Response.status(Status.BAD_REQUEST).build();
 		}
@@ -72,11 +73,29 @@ public final class IssueWebService{
 	@Path("{issueId}")
 	public final Response deleteIssue(@PathParam("issueId") final Long id)
 	{
-		Issue issue = issueService.findIssueById(id);
-		if(issue == null) {
+		Issue issue = issueService.deleteIssue(id);
+		if(null != issue) {
+			return Response.ok(JsonWriter.toJson(issue)).build();
+		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		return Response.ok(issueService.deleteIssue(issue)).build();
+	}
+	
+	@PUT
+	@Path("{issueId}")
+	public final Response updateIssue(@PathParam("issueId") final Long id, final String description)
+	{
+		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
+		String desc = jo.get("description").getAsString();
+		Issue issue = new Issue(desc);
+		issue.setId(id);
+		
+		issue = issueService.saveIssue(issue);
+		if(null != issue){			
+			return Response.ok(JsonWriter.toJson(issue)).build();
+		}else{
+			return Response.status(Status.BAD_REQUEST).build();
+		}
 	}
 
 }

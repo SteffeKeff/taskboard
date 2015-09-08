@@ -18,8 +18,12 @@ public class IssueService {
 		return issueRepository.findOne(id);
 	}
 	
-	public Issue deleteIssue(Issue issue){
-		issueRepository.delete(issue);
+	public Issue deleteIssue(Long id){
+		Issue issue = findIssueById(id);
+		
+		if(null != issue){
+			issueRepository.delete(issue);
+		}
 		return issue;
 	}
 }
