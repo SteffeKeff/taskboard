@@ -32,7 +32,8 @@ public final class WorkItemWebService {
 	
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static WorkItemService workItemService = new WorkItemService();
-	private static final ObjectMapper mapper = new ObjectMapper();
+//	private static final ObjectMapper mapper = new ObjectMapper();
+	private static final com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 	
 	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
