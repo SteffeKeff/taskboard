@@ -107,12 +107,6 @@ public class TeamWebService {
 		return Response.ok(teams.get(0).toString()).build();
 	}
 	
-	@PUT
-	public Response addTeam() {
-		return null;
-
-	}
-	
 	@DELETE
 	@Path("{name}")
 	public final Response deleteTeamByName(@PathParam("name") final String name) {

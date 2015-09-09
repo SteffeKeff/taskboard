@@ -31,7 +31,7 @@ import se.eldebabe.taskboard.data.services.IssueService;
 public final class IssueWebService{
 
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-	private static IssueService issueService = new IssueService();
+	private static IssueService issueService;
 	private static final ObjectMapper mapper = new ObjectMapper();
 
 	static{
@@ -86,6 +86,7 @@ public final class IssueWebService{
 	public final Response updateIssue(@PathParam("issueId") final Long id, final String json) throws JsonParseException, JsonMappingException, IOException
 	{
 		Issue issue = mapper.readValue(json, Issue.class);
+		issue.setId(id);
 
 		issue = issueService.updateIssue(issue);
 		if(null != issue){			
