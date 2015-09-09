@@ -64,7 +64,7 @@ public final class UserWebService{
 	}
 	
 	@GET
-	@Path("{userId}")
+	@Path("/id/{userId}")
 	public Response getUser(@PathParam("userId") final String userId) throws JsonGenerationException, JsonMappingException, IOException
 	{
 		User user = userService.findUser(userId);
