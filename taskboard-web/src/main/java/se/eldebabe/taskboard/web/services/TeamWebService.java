@@ -46,7 +46,6 @@ public class TeamWebService {
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh(); 
 		teamService = context.getBean(TeamService.class);
-		
 	}
 	
 	@GET
