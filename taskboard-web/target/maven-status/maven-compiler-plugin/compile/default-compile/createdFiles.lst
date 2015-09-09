@@ -1,0 +1,4 @@
+se/eldebabe/taskboard/web/services/IssueWebService.class
+se/eldebabe/taskboard/web/services/UserWebService.class
+se/eldebabe/taskboard/web/services/TeamWebService.class
+se/eldebabe/taskboard/web/services/WorkItemWebService.class
