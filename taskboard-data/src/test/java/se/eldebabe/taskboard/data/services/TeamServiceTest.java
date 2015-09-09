@@ -10,9 +10,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import se.eldebabe.taskboard.data.models.Team;
-import se.eldebabe.taskboard.data.models.User;
-import se.eldebabe.taskboard.data.models.WorkItem;
+import se.eldebabe.taskboard.data.models.*;
 
 public final class TeamServiceTest {
 
@@ -45,8 +43,8 @@ public final class TeamServiceTest {
 		User user = new User("id", "name", "firstname", "lastname");
 		team.addUser(user);
 		teamService.saveTeam(team);
-		teamService.deleteTeam(team);
-		assertThat("teamService cant find team", null, is(teamService.findTeam(team.getName())));
+		teamService.delete(team.getId());
+		assertThat("teamService cant find team", null, is(teamService.findTeamByName(team.getName())));
 	}
 	
 	@Test
@@ -79,7 +77,7 @@ public final class TeamServiceTest {
 		User user = new User("blabla", "userName", "firstName","lastName");
 		user.setTeam(team);
 		userService.saveUser(user);
-		assertThat("user is in team", 1, is(teamService.findTeam(team.getName()).get(0).getUsers().size()));
+		assertThat("user is in team", 1, is(teamService.findTeamByName(team.getName()).getUsers().size()));
 	}
 	
 	@Test
