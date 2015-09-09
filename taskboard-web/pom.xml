@@ -46,7 +46,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -79,6 +79,11 @@
 			<groupId>com.cedarsoftware</groupId>
 			<artifactId>json-io</artifactId>
 			<version>2.2.29</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.8.5</version>
 		</dependency>
 	</dependencies>
 

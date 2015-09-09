@@ -50,7 +50,7 @@ public final class IssueServiceTest{
 	public void assertThatIssueCanBeDeleted(){
 		issue = new Issue("Problem med databasen");
 		issueService.saveIssue(issue);
-		issueService.deleteIssue(issue);
+		issueService.deleteIssue(issue.getId());
 		assertThat("issueService must not find issue", null, is(issueService.findIssueById(issue.getId())));
 	}
 	
