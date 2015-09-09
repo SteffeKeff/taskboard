@@ -33,10 +33,10 @@ public final class IssueWebService{
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static IssueService issueService = new IssueService();
 	private static final ObjectMapper mapper = new ObjectMapper();
-	
+
 	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
-		context.refresh(); 
+		context.refresh();
 		issueService = context.getBean(IssueService.class);
 	}
 
@@ -55,39 +55,38 @@ public final class IssueWebService{
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-	
+
 	@GET
 	@Path("{issueId}")
 	public final Response getIssue(@PathParam("issueId") final Long id) throws JsonGenerationException, JsonMappingException, IOException{
 
 		Issue issue = issueService.findIssueById(id);
-		
 		if(null != issue){
 			return Response.ok(mapper.writeValueAsString(issue)).build();
 		}else{
 			return Response.noContent().build();
 		}
 	}
-	
+
 	@DELETE
 	@Path("{issueId}")
 	public final Response deleteIssue(@PathParam("issueId") final Long id) throws JsonGenerationException, JsonMappingException, IOException
 	{
-		Issue issue = issueService.deleteIssue(id);
+		Issue issue = issueService.findIssueById(id);
+		issue = issueService.deleteIssue(id);
 		if(null != issue) {
 			return Response.ok(mapper.writeValueAsString(issue)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
-	
+
 	@PUT
 	@Path("{issueId}")
 	public final Response updateIssue(@PathParam("issueId") final Long id, final String json) throws JsonParseException, JsonMappingException, IOException
 	{
 		Issue issue = mapper.readValue(json, Issue.class);
-		issue.setId(id);
-		
+
 		issue = issueService.updateIssue(issue);
 		if(null != issue){			
 			return Response.ok(mapper.writeValueAsString(issue)).build();
