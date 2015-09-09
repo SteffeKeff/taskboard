@@ -1,5 +1,7 @@
 package se.eldebabe.taskboard.web.services;
 
+import java.io.IOException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -14,11 +16,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriInfo;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import com.cedarsoftware.util.io.JsonWriter;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import se.eldebabe.taskboard.data.models.Issue;
 import se.eldebabe.taskboard.data.services.IssueService;
@@ -30,6 +32,7 @@ public final class IssueWebService{
 
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static IssueService issueService = new IssueService();
+	private static final ObjectMapper mapper = new ObjectMapper();
 	
 	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
@@ -41,16 +44,13 @@ public final class IssueWebService{
 	public UriInfo uriInfo;
 
 	@POST
-	public final Response saveIssue(final String description)
+	public final Response saveIssue(final String json) throws JsonParseException, JsonMappingException, IOException
 	{
-		
-		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
-		String desc = jo.get("description").getAsString();
-		Issue issue = new Issue(desc);
+		Issue issue = mapper.readValue(json, Issue.class);
 		
 		issue = issueService.saveIssue(issue);
 		if(null != issue){			
-			return Response.ok(JsonWriter.toJson(issue)).header("Location", uriInfo.getPath() + "/" + issue.getId().toString()).build();
+			return Response.ok(mapper.writeValueAsString(issue)).header("Location", uriInfo.getPath() + "/" + issue.getId().toString()).build();
 		}else{
 			return Response.status(Status.BAD_REQUEST).build();
 		}
@@ -58,12 +58,12 @@ public final class IssueWebService{
 	
 	@GET
 	@Path("{issueId}")
-	public final Response getIssue(@PathParam("issueId") final Long id){
+	public final Response getIssue(@PathParam("issueId") final Long id) throws JsonGenerationException, JsonMappingException, IOException{
 
 		Issue issue = issueService.findIssueById(id);
 		
 		if(null != issue){
-			return Response.ok(JsonWriter.toJson(issue)).build();
+			return Response.ok(mapper.writeValueAsString(issue)).build();
 		}else{
 			return Response.noContent().build();
 		}
@@ -71,11 +71,11 @@ public final class IssueWebService{
 	
 	@DELETE
 	@Path("{issueId}")
-	public final Response deleteIssue(@PathParam("issueId") final Long id)
+	public final Response deleteIssue(@PathParam("issueId") final Long id) throws JsonGenerationException, JsonMappingException, IOException
 	{
 		Issue issue = issueService.deleteIssue(id);
 		if(null != issue) {
-			return Response.ok(JsonWriter.toJson(issue)).build();
+			return Response.ok(mapper.writeValueAsString(issue)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -83,16 +83,14 @@ public final class IssueWebService{
 	
 	@PUT
 	@Path("{issueId}")
-	public final Response updateIssue(@PathParam("issueId") final Long id, final String description)
+	public final Response updateIssue(@PathParam("issueId") final Long id, final String json) throws JsonParseException, JsonMappingException, IOException
 	{
-		JsonObject jo = new Gson().fromJson(description, JsonObject.class);
-		String desc = jo.get("description").getAsString();
-		Issue issue = new Issue(desc);
+		Issue issue = mapper.readValue(json, Issue.class);
 		issue.setId(id);
 		
 		issue = issueService.updateIssue(issue);
 		if(null != issue){			
-			return Response.ok(JsonWriter.toJson(issue)).build();
+			return Response.ok(mapper.writeValueAsString(issue)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}

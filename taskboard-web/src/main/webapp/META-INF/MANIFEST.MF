@@ -18,5 +18,5 @@ Class-Path: jersey-container-servlet-core-2.16.jar javax.inject-2.4.0-
  r hibernate-commons-annotations-4.0.5.Final.jar hibernate-jpa-2.1-api
  -1.0.0.Final.jar antlr-2.7.7.jar jandex-1.1.0.Final.jar HikariCP-2.3.
  9.jar mysql-connector-java-5.1.36.jar commons-lang3-3.4.jar json-io-2
- .2.29.jar
+ .2.29.jar jackson-mapper-asl-1.8.5.jar jackson-core-asl-1.8.5.jar
 
