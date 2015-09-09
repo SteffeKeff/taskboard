@@ -46,7 +46,7 @@ public final class TeamServiceTest {
 		team.addUser(user);
 		teamService.saveTeam(team);
 		teamService.deleteTeam(team);
-		assertThat("teamService cant find team", null, is(teamService.findTeam(team.getName())));
+		assertThat("teamService cant find team", new ArrayList<>(), is(teamService.findTeam(team.getName())));
 	}
 	
 	@Test
