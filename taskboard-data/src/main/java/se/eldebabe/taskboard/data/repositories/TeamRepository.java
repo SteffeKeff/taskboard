@@ -13,5 +13,8 @@ public interface TeamRepository extends CrudRepository<Team, Long>{
 	List<Team> findByName(String name);
 	
 	@Transactional
-	void deleteByName(String name);
+	List<Team> deleteByName(String name);
+	
+	@Transactional
+	List<Team> deleteById(Long id);
 }

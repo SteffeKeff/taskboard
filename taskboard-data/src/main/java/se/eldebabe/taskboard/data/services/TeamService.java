@@ -22,24 +22,32 @@ public class TeamService {
 		return teamRepository.save(team);
 	}
 	
-	@Transactional
-	public void deleteByName(String name){
-		teamRepository.deleteByName(name);
+	public List<Team> deleteByName(String name){
+		return teamRepository.deleteByName(name);
+	}
+
+	
+	public Team delete(Long id){
+		Team team = teamRepository.findOne(id);
+		
+		if(team != null){
+			return teamRepository.deleteById(id).get(0);
+
+		}
+		return null;
 	}
 	
-	@Transactional
-	public Team deleteTeam(Team team){
-		teamRepository.delete(team.getId());
-		return team;
-	}
-	
-	public List<Team> findTeam(String name){
-		return teamRepository.findByName(name);
+	public Team findTeamByName(String name){
+		return teamRepository.findByName(name).get(0);
 	}
 	
 	@Transactional
 	public Team updateTeam(Team team){
 		return teamRepository.save(team);
+	}
+	
+	public Team findById(Long id){
+		return teamRepository.findOne(id);
 	}
 	
 	public List<Team> findAllTeams(){
