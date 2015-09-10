@@ -64,8 +64,6 @@
   <version>2.0.0</version>
 </dependency>
 
-
-
 	<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -77,7 +75,6 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring.data.version}</version>
 		</dependency>
-
 
 		<!-- JPA Provider (Hibernate) -->
 		<dependency>
@@ -118,8 +115,5 @@
 			<artifactId>junit</artifactId>
 			<version>4.12</version>
 		</dependency>
-
-
 	</dependencies>
-
 </project>

@@ -12,7 +12,7 @@ import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.models.WorkItem;
 import se.eldebabe.taskboard.data.repositories.TeamRepository;
 
-public class TeamService {
+public class TeamService{
 
 	@Autowired
 	private TeamRepository teamRepository;

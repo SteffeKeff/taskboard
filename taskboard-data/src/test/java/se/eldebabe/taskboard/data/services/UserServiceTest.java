@@ -8,8 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import se.eldebabe.taskboard.data.models.User;
-import se.eldebabe.taskboard.data.models.WorkItem;
+import se.eldebabe.taskboard.data.models.*;
 
 public final class UserServiceTest{
 
@@ -35,9 +34,8 @@ public final class UserServiceTest{
 	public void assertThatUserCanBeUpdated(){
 		user = new User("1002", "user2", "Olle", "Nilsson");
 		userService.saveUser(user);
-		Long userId = user.getId();
 		user = new User("1002", "user2", "Peter", "Svensson");
-		userService.updateUser(userId, user);
+		userService.updateUser(user);
 		assertThat("User should now be changed", user.getFirstName(),
 				is(userService.findByUserName("user2").getFirstName()));
 	}
