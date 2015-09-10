@@ -132,9 +132,9 @@ public final class TeamServiceTest {
 		user2.addWorkItem(w3);
 		user3.addWorkItem(w4);
 		user3.addWorkItem(w5);
-		userService.updateUser(user1.getId(), user1);
-		userService.updateUser(user2.getId(), user2);
-		userService.updateUser(user3.getId(), user3);
+		userService.updateUser(user1);
+		userService.updateUser(user2);
+		userService.updateUser(user3);
 	
 		assertThat("Team2 should contain 5 work items", 5, is(teamService.findWorkItemsInTeam(team3.getId()).size()));
 	}

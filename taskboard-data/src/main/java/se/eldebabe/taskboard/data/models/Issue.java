@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "issues")
-@XmlRootElement
 public class Issue extends AbstractEntity{
 
 	@Column

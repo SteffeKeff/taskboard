@@ -79,7 +79,6 @@ public class TeamWebService {
 		
 		Team team = mapper.readValue(jSon, Team.class);
 		
-		
 		teamService.saveTeam(team);
 		return Response.ok(mapper.writeValueAsString(team)).build();
 	}
@@ -99,41 +98,40 @@ public class TeamWebService {
 	}
 	
 	@GET
-	public Response getAllTeams()
+	public Response getAllTeams() throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException
 	{
 	
 		List<Team> teams = teamService.findAllTeams();
 		if(teams == null || teams.size() == 0) {
 			return Response.status(Status.NOT_FOUND).build();
 		}else{
-			teams.forEach(System.out::println);
+			return Response.ok(mapper.writeValueAsString(teams)).build();
 		}
-		
-		return Response.ok(teams.get(0).toString()).build();
 	}
 
 	@DELETE
 	@Path("{name}")
-	public final Response deleteTeamByName(@PathParam("name") final String name) {
+	public final Response deleteTeamByName(@PathParam("name") final String name) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
 
-		List<Team> teams =teamService.deleteByName(name);
+		Team team = teamService.deleteByName(name);
 
-		if(teams != null){
-			return Response.ok(JsonWriter.toJson(teams.get(0))).build();
+		if(team != null){
+			return Response.ok(mapper.writeValueAsString(team)).build();
+		}else{
+			return Response.status(Status.NOT_FOUND).build();
 		}
-		return Response.status(Status.NOT_FOUND).build();
 
 		
 	}
 	
 	@DELETE
 	@Path("/id/{id}")
-	public final Response deleteTeamById(@PathParam("id") final Long id) {
+	public final Response deleteTeamById(@PathParam("id") final Long id) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
 		
 		Team team = teamService.delete(id);
 		
 		if(team != null){
-			return Response.ok(JsonWriter.toJson(team)).build();
+			return Response.ok(mapper.writeValueAsString(team)).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 

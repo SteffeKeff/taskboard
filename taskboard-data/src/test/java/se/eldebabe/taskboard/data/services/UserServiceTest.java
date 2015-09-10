@@ -37,7 +37,7 @@ public final class UserServiceTest{
 		userService.saveUser(user);
 		Long userId = user.getId();
 		user = new User("1002", "user2", "Peter", "Svensson");
-		userService.updateUser(userId, user);
+		userService.updateUser(user);
 		assertThat("User should now be changed", user.getFirstName(),
 				is(userService.findByUserName("user2").getFirstName()));
 	}

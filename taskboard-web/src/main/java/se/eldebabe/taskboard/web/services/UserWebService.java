@@ -90,7 +90,7 @@ public class UserWebService{
 	{
 		ArrayList<User> user = (ArrayList<User>) userService.findByFirstname(firstName);
 		
-		if(null != user){
+		if(null != user | !user.isEmpty()){
 			return Response.ok(mapper.writeValueAsString(user)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
@@ -102,7 +102,7 @@ public class UserWebService{
 	public Response searchUserByLastName(@QueryParam("lastname") final String lastName) throws JsonGenerationException, JsonMappingException, IOException
 	{
 		ArrayList<User> user = (ArrayList<User>) userService.findByLastname(lastName);
-		if(null != user){
+		if(null != user | !user.isEmpty()){
 			return Response.ok(mapper.writeValueAsString(user)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();

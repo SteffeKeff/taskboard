@@ -11,19 +11,34 @@ import se.eldebabe.taskboard.data.models.Team;
 import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.models.WorkItem;
 import se.eldebabe.taskboard.data.repositories.TeamRepository;
+import se.eldebabe.taskboard.data.repositories.UserRepository;
 
 public class TeamService {
 
 	@Autowired
 	private TeamRepository teamRepository;
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Transactional
 	public Team saveTeam(Team team){
 		return teamRepository.save(team);
 	}
 	
-	public List<Team> deleteByName(String name){
-		return teamRepository.deleteByName(name);
+	public Team deleteByName(String name){
+		Team team = findTeamByName(name);
+		if(team != null){
+			for(User user: team.getUsers())
+			{
+				user.setTeam(null);
+				userRepository.save(user);
+			}
+			team.getUsers().clear();
+			teamRepository.delete(team.getId());
+			return team;
+		}else{
+			return null;
+		}
 	}
 
 	
@@ -31,8 +46,8 @@ public class TeamService {
 		Team team = teamRepository.findOne(id);
 		
 		if(team != null){
-			return teamRepository.deleteById(id).get(0);
-
+			teamRepository.deleteById(id);
+			return team;
 		}
 		return null;
 	}

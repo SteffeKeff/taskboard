@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Team extends AbstractEntity{
 
-	@Column(name = "name")
+	@Column(name = "name", unique=true)
 	private String name;
 
 	@JsonManagedReference
