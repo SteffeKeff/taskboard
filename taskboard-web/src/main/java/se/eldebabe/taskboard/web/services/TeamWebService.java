@@ -1,5 +1,6 @@
 package se.eldebabe.taskboard.web.services;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -13,25 +14,28 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.cedarsoftware.util.io.JsonWriter;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
-import se.eldebabe.taskboard.data.models.*;
+import se.eldebabe.taskboard.data.models.Team;
+import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.services.TeamService;
 import se.eldebabe.taskboard.data.services.UserService;
 
 @Path("teams")
 @Produces({javax.ws.rs.core.MediaType.APPLICATION_JSON})
 @Consumes({javax.ws.rs.core.MediaType.APPLICATION_JSON})
-
 public class TeamWebService {
 	
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static TeamService teamService;
 	private static UserService userService;
+	com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
 	Gson gson = new Gson();
 	
 	static{
@@ -43,11 +47,11 @@ public class TeamWebService {
 	
 	@GET
 	@Path("/id/{id}")
-	public Response getTeamById(@PathParam("id") final Long id) {
+	public Response getTeamById(@PathParam("id") final Long id) throws JsonGenerationException, JsonMappingException, IOException {
 		Team team = teamService.findById(id);
 		
 		if(null != team){
-			return Response.ok(JsonWriter.toJson(team)).build();
+			return Response.ok(mapper.writeValueAsString(team)).build();
 		}else{
 			return Response.noContent().build();
 		}
@@ -56,11 +60,11 @@ public class TeamWebService {
 	
 	@GET
 	@Path("{name}")
-	public Response getTeamByName(@PathParam("name") final String name) {
+	public Response getTeamByName(@PathParam("name") final String name) throws JsonGenerationException, JsonMappingException, IOException {
 		Team team = teamService.findTeamByName(name);
 		
 		if(null != team){
-			return Response.ok(JsonWriter.toJson(team)).build();
+			return Response.ok(mapper.writeValueAsString(team)).build();
 		}else{
 			return Response.status(Status.NOT_FOUND).build();
 		}
@@ -68,15 +72,13 @@ public class TeamWebService {
 	}
 	
 	@PUT
-	public Response saveTeam(String jSon){
+	public Response saveTeam(String jSon) throws JsonParseException, JsonMappingException, IOException{
 		
-		JsonObject jo = new Gson().fromJson(jSon, JsonObject.class);
-		String teamName = jo.get("teamname").getAsString();
+		Team team = mapper.readValue(jSon, Team.class);
 		
-
-		Team team = new Team(teamName);
+		
 		teamService.saveTeam(team);
-		return Response.ok(JsonWriter.toJson(team)).build();
+		return Response.ok(mapper.writeValueAsString(team)).build();
 	}
 	
 	@POST
@@ -106,13 +108,7 @@ public class TeamWebService {
 		
 		return Response.ok(teams.get(0).toString()).build();
 	}
-	
-	@PUT
-	public Response addTeam() {
-		return null;
 
-	}
-	
 	@DELETE
 	@Path("{name}")
 	public final Response deleteTeamByName(@PathParam("name") final String name) {

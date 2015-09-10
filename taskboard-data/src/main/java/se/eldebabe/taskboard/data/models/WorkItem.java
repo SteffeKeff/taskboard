@@ -9,8 +9,13 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
 @Entity
 @Table(name = "work_items")
+//@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class WorkItem extends AbstractEntity{
 
 	@Column(name = "title")
@@ -23,6 +28,7 @@ public class WorkItem extends AbstractEntity{
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private Issue issue;
 	

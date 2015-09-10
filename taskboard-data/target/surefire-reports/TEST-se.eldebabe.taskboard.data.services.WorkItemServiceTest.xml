@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="se.eldebabe.taskboard.data.services.WorkItemServiceTest" time="0.084" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="se.eldebabe.taskboard.data.services.WorkItemServiceTest" time="0.074" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
@@ -61,11 +61,11 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemsCanBeFetchedByDescription" time="0.02"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemStatusCanBeChanged" time="0.013"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemCanBeDeleted" time="0.009"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemsCanBeFetchedByDescription" time="0.009"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemStatusCanBeChanged" time="0.011"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemCanBeDeleted" time="0.011"/>
   <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatAllWorkItemWhichHasAnIssueCanBeFetched" time="0.021"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemCanHaveAnIssue" time="0.006"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemCanHaveAnIssue" time="0.007"/>
   <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemIsSavable" time="0.003"/>
   <testcase classname="se.eldebabe.taskboard.data.services.WorkItemServiceTest" name="assertThatWorkItemsCanBeFetchedByStatus" time="0.012"/>
 </testsuite>
