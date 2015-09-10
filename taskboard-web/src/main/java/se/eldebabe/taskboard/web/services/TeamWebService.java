@@ -3,7 +3,6 @@ package se.eldebabe.taskboard.web.services;
 import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.Transient;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,13 +17,9 @@ import javax.ws.rs.core.Response.Status;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import com.fasterxml.jackson.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-
-import com.cedarsoftware.util.io.JsonWriter;
-import com.google.gson.Gson;
 
 
 import se.eldebabe.taskboard.data.models.*;
@@ -39,13 +34,13 @@ public class TeamWebService {
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static TeamService teamService;
 	private static UserService userService;
-	com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-	Gson gson = new Gson();
+	private static ObjectMapper mapper = new ObjectMapper();
 	
 	static{
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh(); 
 		teamService = context.getBean(TeamService.class);
+		userService = context.getBean(UserService.class);
 		
 	}
 	
@@ -87,7 +82,7 @@ public class TeamWebService {
 	
 	@POST
 	@Path("/id/{id}")
-	public Response saveTeamWithUsers(@PathParam("id") final Long id,  final String userID){
+	public Response addUserToTeam(@PathParam("id") final Long id,  final String userID) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException{
 		
 		User userToBeAdded = userService.findUser(userID);
 		
@@ -95,12 +90,30 @@ public class TeamWebService {
 		
 		Team updatedTeam = teamService.findById(id);
 		
-        return Response.ok(JsonWriter.toJson(updatedTeam)).build();
+        return Response.ok(mapper.writeValueAsString(updatedTeam)).build();
 
 	}
 	
+	@POST
+	@Path("/id/{teamId}/remove/{userId}")
+	public Response removeUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final String userId) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException{
+		
+		User userToBeRemoved = userService.findUser(userId);
+		
+		userToBeRemoved.setTeam(null);
+		
+		userService.updateUser(userToBeRemoved.getId(), userToBeRemoved);
+		
+		Team updatedTeam = teamService.findById(teamId);
+		
+        return Response.ok(mapper.writeValueAsString(updatedTeam)).build();
+
+	}
+	
+	
+	
 	@GET
-	public Response getAllTeams()
+	public Response getAllTeams() throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException
 	{
 	
 		List<Team> teams = teamService.findAllTeams();
@@ -110,19 +123,29 @@ public class TeamWebService {
 			teams.forEach(System.out::println);
 		}
 		
-		return Response.ok(teams.get(0).toString()).build();
+		return Response.ok(mapper.writeValueAsString(teams)).build();
 	}
 	
 
 	
 	@DELETE
 	@Path("{name}")
-	public final Response deleteTeamByName(@PathParam("name") final String name) {
+	public final Response deleteTeamByName(@PathParam("name") final String name) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
 
+		Team teamWithUsers = teamService.findTeamByName(name);
+		
+		List<User> usersInTeam = (List<User>) teamWithUsers.getUsers();
+		
+		for (User user : usersInTeam) {
+			user.setTeam(null);
+			userService.updateUser(user.getId(), user);
+		}
+		
+		
 		List<Team> teams =teamService.deleteByName(name);
 
 		if(teams != null){
-			return Response.ok(JsonWriter.toJson(teams.get(0))).build();
+			return Response.ok(mapper.writeValueAsString(teams.get(0))).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 
@@ -131,12 +154,22 @@ public class TeamWebService {
 	
 	@DELETE
 	@Path("/id/{id}")
-	public final Response deleteTeamById(@PathParam("id") final Long id) {
+	public final Response deleteTeamById(@PathParam("id") final Long id) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
 		
-		Team team = teamService.delete(id);
+		Team teamWithUsers = teamService.findById(id);
 		
+		List<User> usersInTeam = (List<User>) teamWithUsers.getUsers();
+		
+		for (User user : usersInTeam) {
+			user.setTeam(null);
+			userService.updateUser(user.getId(), user);
+		}
+		
+		
+		Team team =teamService.delete(id);
+
 		if(team != null){
-			return Response.ok(JsonWriter.toJson(team)).build();
+			return Response.ok(mapper.writeValueAsString(team)).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 
