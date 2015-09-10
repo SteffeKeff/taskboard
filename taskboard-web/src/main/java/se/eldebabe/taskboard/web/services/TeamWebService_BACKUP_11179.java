@@ -40,8 +40,11 @@ public class TeamWebService {
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh(); 
 		teamService = context.getBean(TeamService.class);
+<<<<<<< HEAD
 		userService = context.getBean(UserService.class);
 		
+=======
+>>>>>>> 07df935c982ab24bd5f448d8a96f9f80aaf87fb5
 	}
 	
 	@GET
@@ -102,7 +105,7 @@ public class TeamWebService {
 		
 		userToBeRemoved.setTeam(null);
 		
-		userService.updateUser(userToBeRemoved);
+		userService.updateUser(userToBeRemoved.getId(), userToBeRemoved);
 		
 		Team updatedTeam = teamService.findById(teamId);
 		
@@ -136,7 +139,7 @@ public class TeamWebService {
 		
 		for (User user : usersInTeam) {
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.updateUser(user.getId(), user);
 		}
 		
 		
@@ -160,7 +163,7 @@ public class TeamWebService {
 		
 		for (User user : usersInTeam) {
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.updateUser(user.getId(), user);
 		}
 		
 		

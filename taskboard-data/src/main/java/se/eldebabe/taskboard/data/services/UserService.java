@@ -16,14 +16,18 @@ public class UserService{
 		return userRepository.save(user);
 	}
 	
-	public User updateUser(Long id, User user){
-		User oldUser = userRepository.findOne(id);
-		user.setId(oldUser.getId());
-		return userRepository.save(user);
+	public User updateUser(User user){
+		User oldUser = findUser(user.getUserId());
+		if(oldUser != null){
+			user.setId(oldUser.getId()); //Sätter till entity idt från databasen			
+			return userRepository.save(user);
+		}else{
+			return null;
+		}
 	}
 
-	public User findUser(String userID){
-		return userRepository.findByUserId(userID);
+	public User findUser(String userId){
+		return userRepository.findByUserId(userId);
 	}
 
 	public List<User> findByFirstname(String firstName){

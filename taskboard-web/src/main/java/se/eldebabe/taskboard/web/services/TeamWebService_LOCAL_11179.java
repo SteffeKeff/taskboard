@@ -102,7 +102,7 @@ public class TeamWebService {
 		
 		userToBeRemoved.setTeam(null);
 		
-		userService.updateUser(userToBeRemoved);
+		userService.updateUser(userToBeRemoved.getId(), userToBeRemoved);
 		
 		Team updatedTeam = teamService.findById(teamId);
 		
@@ -125,7 +125,9 @@ public class TeamWebService {
 		
 		return Response.ok(mapper.writeValueAsString(teams)).build();
 	}
+	
 
+	
 	@DELETE
 	@Path("{name}")
 	public final Response deleteTeamByName(@PathParam("name") final String name) throws com.fasterxml.jackson.core.JsonGenerationException, com.fasterxml.jackson.databind.JsonMappingException, IOException {
@@ -136,7 +138,7 @@ public class TeamWebService {
 		
 		for (User user : usersInTeam) {
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.updateUser(user.getId(), user);
 		}
 		
 		
@@ -160,7 +162,7 @@ public class TeamWebService {
 		
 		for (User user : usersInTeam) {
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.updateUser(user.getId(), user);
 		}
 		
 		
