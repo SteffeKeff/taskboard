@@ -11,14 +11,14 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.models.WorkItem;
 
-public final class UserServiceTest{
+public final class UserServiceTest {
 
 	private static AnnotationConfigApplicationContext context;
 	private User user;
 	private static UserService userService;
 
 	@BeforeClass
-	public static void setup(){
+	public static void setup() {
 		context = new AnnotationConfigApplicationContext();
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh();
@@ -26,16 +26,15 @@ public final class UserServiceTest{
 	}
 
 	@Test
-	public void assertThatUserIsSavable(){
+	public void assertThatUserIsSavable() {
 		user = new User("1001", "user1", "Olle", "Nilsson");
 		assertThat("Added User should be returned", user, is(userService.saveUser(user)));
 	}
 
 	@Test
-	public void assertThatUserCanBeUpdated(){
+	public void assertThatUserCanBeUpdated() {
 		user = new User("1002", "user2", "Olle", "Nilsson");
 		userService.saveUser(user);
-		Long userId = user.getId();
 		user = new User("1002", "user2", "Peter", "Svensson");
 		userService.updateUser(user);
 		assertThat("User should now be changed", user.getFirstName(),
@@ -43,22 +42,22 @@ public final class UserServiceTest{
 	}
 
 	@Test
-	public void assertThatUserCanBeDeleted(){
+	public void assertThatUserCanBeDeleted() {
 		user = new User("1003", "user3", "Steff", "keff");
 		userService.saveUser(user);
 		userService.deleteUser(user.getId());
 		assertThat("userService deleted User", null, is(userService.findByUserName("user3")));
 	}
-	
+
 	@Test
-	public void assertThatUserCanBeFoundByUserId(){
+	public void assertThatUserCanBeFoundByUserId() {
 		user = new User("1004", "user4", "Steffe", "Kung");
 		userService.saveUser(user);
 		assertThat("User is found by it's userID", "1004", is(userService.findUser("1004").getUserId()));
 	}
 
 	@Test
-	public void assertThatUserIsFoundByFirstname(){
+	public void assertThatUserIsFoundByFirstname() {
 		user = new User("1005", "user5", "Firstname1", "Lastname1");
 		userService.saveUser(user);
 		assertThat("User is found by it's firstname", "1005",
@@ -66,7 +65,7 @@ public final class UserServiceTest{
 	}
 
 	@Test
-	public void assertThatUserIsFoundByLastname(){
+	public void assertThatUserIsFoundByLastname() {
 		user = new User("1006", "user6", "Firstname2", "Lastname2");
 		userService.saveUser(user);
 		assertThat("User is found by it's lastname", "1006",
@@ -74,16 +73,16 @@ public final class UserServiceTest{
 	}
 
 	@Test
-	public void assertThatUserIsFoundByUsername(){
+	public void assertThatUserIsFoundByUsername() {
 		user = new User("1007", "user7", "Firstname3", "Lastname3");
 		userService.saveUser(user);
 		assertThat("User is found by it's username", "1007", is(userService.findByUserName("user7").getUserId()));
 	}
-	
-	/*//// These test have relations ////*/
-	
+
+	/* //// These test have relations //// */
+
 	@Test
-	public void assertThatAnUserCanBeAssignedAnWorkItemAndFetchAllWorkItems(){
+	public void assertThatAnUserCanBeAssignedAnWorkItemAndFetchAllWorkItems() {
 		WorkItem workItem1 = new WorkItem("nytt work item1", "ett litet uppdrag här!");
 		WorkItem workItem2 = new WorkItem("nytt work item2", "ett litet uppdrag här!!");
 		WorkItem workItem3 = new WorkItem("nytt work item3", "ett litet uppdrag här!!!");
@@ -92,11 +91,12 @@ public final class UserServiceTest{
 		user.addWorkItem(workItem2);
 		user.addWorkItem(workItem3);
 		userService.saveUser(user);
-		assertThat("the user should now have one workItem", user.getWorkItems().size(), is(userService.findUser("1010").getWorkItems().size()));
+		assertThat("the user should now have one workItem", user.getWorkItems().size(),
+				is(userService.findUser("1010").getWorkItems().size()));
 	}
 
 	@AfterClass
-	public static void tearDown(){
+	public static void tearDown() {
 		userService.clearUsers();
 		context.close();
 	}

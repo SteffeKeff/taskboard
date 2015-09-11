@@ -3,26 +3,26 @@ package se.eldebabe.taskboard.data.models;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "issues")
-public class Issue extends AbstractEntity{
+public class Issue extends AbstractEntity {
 
 	@Column
 	private String description;
 
-	protected Issue(){}
+	protected Issue() {
+	}
 
-	public Issue(String description){
+	public Issue(String description) {
 		this.description = description;
 	}
 
-	public String getDescription(){
+	public String getDescription() {
 		return description;
 	}
 
-	public void setDescription(String description){
+	public void setDescription(String description) {
 		this.description = description;
 	}
 

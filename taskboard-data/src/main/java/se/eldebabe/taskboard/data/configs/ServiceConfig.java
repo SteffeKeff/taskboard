@@ -10,25 +10,25 @@ import se.eldebabe.taskboard.data.services.WorkItemService;
 
 @Configuration
 public class ServiceConfig {
-	
-		@Bean
-		public UserService userService() {
-			return new UserService();
-		}
-		
-		@Bean
-		public TeamService teamService() {
-			return new TeamService();
-		}
-		
-		@Bean
-		public WorkItemService workItemService() {
-			return new WorkItemService();
-		}
 
-		@Bean
-		public IssueService issueService() {
-			return new IssueService();
-		}
-	
+	@Bean
+	public UserService userService() {
+		return new UserService();
+	}
+
+	@Bean
+	public TeamService teamService() {
+		return new TeamService();
+	}
+
+	@Bean
+	public WorkItemService workItemService() {
+		return new WorkItemService();
+	}
+
+	@Bean
+	public IssueService issueService() {
+		return new IssueService();
+	}
+
 }

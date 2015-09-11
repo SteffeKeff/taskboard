@@ -20,8 +20,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name = "users")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property ="userId")
-public class User extends AbstractEntity{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
+public class User extends AbstractEntity {
 
 	@Column(name = "user_id", unique = true)
 	private String userId;
@@ -35,20 +35,18 @@ public class User extends AbstractEntity{
 	@Column(name = "last_name")
 	private String lastName;
 
-	
 	@ManyToOne
 	@JoinColumn(name = "team_id")
 	@JsonBackReference
 	private Team team;
 
-	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
 	@JsonManagedReference
 	private Collection<WorkItem> workItems;
 
-	protected User(){
+	protected User() {
 	}
-	
+
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
@@ -68,7 +66,8 @@ public class User extends AbstractEntity{
 	public void setWorkItems(Collection<WorkItem> workItems) {
 		this.workItems = workItems;
 	}
-	public User(String userId, String userName, String firstName, String lastName){
+
+	public User(String userId, String userName, String firstName, String lastName) {
 		this.userId = userId;
 		this.userName = userName;
 		this.firstName = firstName;
@@ -76,36 +75,36 @@ public class User extends AbstractEntity{
 		workItems = new ArrayList<>();
 	}
 
-	public String getUserId(){
+	public String getUserId() {
 		return userId;
 	}
 
-	public String getUserName(){
+	public String getUserName() {
 		return userName;
 	}
 
-	public String getFirstName(){
+	public String getFirstName() {
 		return firstName;
 	}
 
-	public String getLastName(){
+	public String getLastName() {
 		return lastName;
 	}
 
-	public Team getTeam(){
+	public Team getTeam() {
 		return team;
 	}
 
-	public Collection<WorkItem> getWorkItems(){
+	public Collection<WorkItem> getWorkItems() {
 		return workItems;
 	}
 
-	public WorkItem addWorkItem(WorkItem workItem){
+	public WorkItem addWorkItem(WorkItem workItem) {
 		workItems.add(workItem);
 		return workItem;
 	}
-	
-	public Team setTeam(Team team){
+
+	public Team setTeam(Team team) {
 		this.team = team;
 		return this.team;
 	}

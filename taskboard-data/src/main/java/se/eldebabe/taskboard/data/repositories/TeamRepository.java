@@ -8,13 +8,13 @@ import org.springframework.data.repository.CrudRepository;
 
 import se.eldebabe.taskboard.data.models.Team;
 
-public interface TeamRepository extends CrudRepository<Team, Long>{
-	
+public interface TeamRepository extends CrudRepository<Team, Long> {
+
 	List<Team> findByName(String name);
-	
+
 	@Transactional
-	void deleteByName(String name);
-	
+	List<Team> deleteByName(String name);
+
 	@Transactional
-	void deleteById(Long id);
+	List<Team> deleteById(Long id);
 }
