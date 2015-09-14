@@ -1,7 +1,7 @@
 package se.eldebabe.taskboard.web.services;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -20,7 +20,7 @@ import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 
 import se.eldebabe.taskboard.data.models.Team;
 import se.eldebabe.taskboard.data.models.User;
@@ -36,9 +36,11 @@ public class TeamWebService{
 	private static AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
 	private static TeamService teamService;
 	private static UserService userService;
-	private static ObjectMapper mapper = new ObjectMapper();
 
-	static{
+	com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
+	Gson gson = new Gson();
+
+	static {
 		context.scan("se.eldebabe.taskboard.data.configs");
 		context.refresh();
 		teamService = context.getBean(TeamService.class);
@@ -53,10 +55,12 @@ public class TeamWebService{
 		Team team = teamService.findById(id);
 
 		if(null != team) {
+
 			return Response.ok(mapper.writeValueAsString(team)).build();
-		}else{
+		} else {
 			return Response.noContent().build();
 		}
+
 	}
 
 	@GET
@@ -66,52 +70,63 @@ public class TeamWebService{
 		Team team = teamService.findTeamByName(name);
 
 		if(null != team) {
+
 			return Response.ok(mapper.writeValueAsString(team)).build();
-		}else{
+		} else {
 			return Response.status(Status.NOT_FOUND).build();
+		}
+
+	}
+	
+	@GET
+	@Path("/id/{id}/workitems")
+	public Response getAllWorkItemsInTeam(@PathParam("id") final Long id)
+			throws JsonGenerationException, JsonMappingException, IOException{
+		Team team = teamService.findById(id);
+		HashSet<WorkItem> workItems = new HashSet<>();
+
+		if(null != team) {
+			for(User user : team.getUsers()){
+				workItems.addAll(user.getWorkItems());
+			}
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
+		}else{
+			return Response.noContent().build();
 		}
 	}
 
-	@PUT
-	public Response saveTeam(String jSon) throws JsonParseException, JsonMappingException, IOException{
+	@POST
+	public Response saveTeam(String jSon) throws JsonParseException, JsonMappingException, IOException {
+
 		Team team = mapper.readValue(jSon, Team.class);
+
 		teamService.saveTeam(team);
 		return Response.ok(mapper.writeValueAsString(team)).build();
 	}
 
-	@POST
-	@Path("/id/{id}")
-	public Response addUserToTeam(@PathParam("id") final Long id, final String userID)
+	@PUT
+	@Path("/id/{id}/{userId}")
+	public Response addUsersToTeam(@PathParam("id") final Long id, @PathParam("userId") final String userID)
 			throws com.fasterxml.jackson.core.JsonGenerationException,
-			com.fasterxml.jackson.databind.JsonMappingException, IOException{
+			com.fasterxml.jackson.databind.JsonMappingException, IOException {
 		User userToBeAdded = userService.findUser(userID);
 		userToBeAdded.setTeam(teamService.findById(id));
+		userService.saveUser(userToBeAdded);
 		Team updatedTeam = teamService.findById(id);
 		return Response.ok(mapper.writeValueAsString(updatedTeam)).build();
-	}
 
-	@POST
-	@Path("/id/{teamId}/remove/{userId}")
-	public Response removeUserToTeam(@PathParam("teamId") final Long teamId, @PathParam("userId") final String userId)
-			throws com.fasterxml.jackson.core.JsonGenerationException,
-			com.fasterxml.jackson.databind.JsonMappingException, IOException{
-		User userToBeRemoved = userService.findUser(userId);
-		userToBeRemoved.setTeam(null);
-		userService.updateUser(userToBeRemoved);
-		Team updatedTeam = teamService.findById(teamId);
-		return Response.ok(mapper.writeValueAsString(updatedTeam)).build();
 	}
 
 	@GET
 	public Response getAllTeams() throws com.fasterxml.jackson.core.JsonGenerationException,
 			com.fasterxml.jackson.databind.JsonMappingException, IOException{
+
 		List<Team> teams = teamService.findAllTeams();
-		if(teams == null || teams.size() == 0) {
+		if (teams == null || teams.size() == 0) {
 			return Response.status(Status.NOT_FOUND).build();
-		}else{
-			teams.forEach(System.out::println);
+		} else {
+			return Response.ok(mapper.writeValueAsString(teams)).build();
 		}
-		return Response.ok(mapper.writeValueAsString(teams)).build();
 	}
 
 	@DELETE
@@ -121,12 +136,15 @@ public class TeamWebService{
 			com.fasterxml.jackson.databind.JsonMappingException, IOException{
 		Team teamWithUsers = teamService.findTeamByName(name);
 		List<User> usersInTeam = (List<User>) teamWithUsers.getUsers();
-		for(User user: usersInTeam){
+
+		for (User user : usersInTeam){
 			user.setTeam(null);
 			userService.updateUser(user);
 		}
+
 		List<Team> teams = teamService.deleteByName(name);
-		if(teams != null) {
+
+		if (teams != null){
 			return Response.ok(mapper.writeValueAsString(teams.get(0))).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
@@ -139,32 +157,34 @@ public class TeamWebService{
 			com.fasterxml.jackson.databind.JsonMappingException, IOException{
 		Team teamWithUsers = teamService.findById(id);
 		List<User> usersInTeam = (List<User>) teamWithUsers.getUsers();
-		for(User user: usersInTeam){
+		for(User user : usersInTeam){
 			user.setTeam(null);
 			userService.updateUser(user);
 		}
 
 		Team team = teamService.delete(id);
-		if(team != null) {
+		if(team != null){
 			return Response.ok(mapper.writeValueAsString(team)).build();
 		}
 		return Response.status(Status.NOT_FOUND).build();
 	}
 
-	@GET
-	@Path("/id/{id}/workitems")
-	public Response getAllWorkItemsInTeam(@PathParam("id") final Long id)
-			throws JsonGenerationException, JsonMappingException, IOException{
-		Team team = teamService.findById(id);
-		ArrayList<WorkItem> workItems = new ArrayList<>();
+	@DELETE
+	@Path("/id/{id}/users/{userId}")
+	public final Response removeUserFromTeam(@PathParam("id") final Long id, @PathParam("userId") final String userId)
+			throws com.fasterxml.jackson.core.JsonGenerationException,
+			com.fasterxml.jackson.databind.JsonMappingException, IOException{
 
-		if(null != team) {
-			for(User user: team.getUsers()){
-				workItems.addAll(user.getWorkItems());
-			}
-			return Response.ok(mapper.writeValueAsString(workItems)).build();
-		}else{
-			return Response.noContent().build();
+		Team team = teamService.findById(id);
+		User user = userService.findUser(userId);
+
+		if (team != null && user != null){
+			user.setTeam(null);
+			userService.updateUser(user);
+			team = teamService.findById(id);
+			return Response.ok(mapper.writeValueAsString(team)).build();
 		}
+		return Response.status(Status.NOT_FOUND).build();
 	}
+
 }

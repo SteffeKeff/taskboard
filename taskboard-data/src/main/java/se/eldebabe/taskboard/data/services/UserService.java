@@ -7,46 +7,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.repositories.UserRepository;
 
-public class UserService{
+public class UserService {
 
 	@Autowired
 	private UserRepository userRepository;
 
-	public User saveUser(User user){
+	public User saveUser(User user) {
 		return userRepository.save(user);
 	}
-	
-	public User updateUser(User user){
+
+	public User updateUser(User user) {
 		User oldUser = findUser(user.getUserId());
-		if(oldUser != null){
-			user.setId(oldUser.getId()); //Sätter till entity idt från databasen			
+		if (oldUser != null) {
 			return userRepository.save(user);
-		}else{
+		} else {
 			return null;
 		}
 	}
 
-	public User findUser(String userId){
+	public User findUser(String userId) {
 		return userRepository.findByUserId(userId);
 	}
 
-	public List<User> findByFirstname(String firstName){
+	public List<User> findByFirstname(String firstName) {
 		return userRepository.findByFirstName(firstName);
 	}
 
-	public List<User> findByLastname(String lastName){
+	public List<User> findByLastname(String lastName) {
 		return userRepository.findByLastName(lastName);
 	}
 
-	public User findByUserName(String userName){
+	public User findByUserName(String userName) {
 		return userRepository.findByUserName(userName);
 	}
 
-	public void deleteUser(Long id){
+	public void deleteUser(Long id) {
 		userRepository.delete(id);
 	}
-	
-	public void clearUsers(){
+
+	public void clearUsers() {
 		userRepository.deleteAll();
 	}
 }

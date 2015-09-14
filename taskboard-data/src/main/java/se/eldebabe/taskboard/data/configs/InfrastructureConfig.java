@@ -57,5 +57,5 @@ public class InfrastructureConfig {
 
 		return factory;
 	}
-	
+
 }

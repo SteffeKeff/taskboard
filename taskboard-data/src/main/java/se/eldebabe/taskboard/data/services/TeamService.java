@@ -16,48 +16,46 @@ public class TeamService{
 
 	@Autowired
 	private TeamRepository teamRepository;
-	
+
 	@Transactional
-	public Team saveTeam(Team team){
+	public Team saveTeam(Team team) {
 		return teamRepository.save(team);
 	}
-	
-	public List<Team> deleteByName(String name){
+
+	public List<Team> deleteByName(String name) {
 		return teamRepository.deleteByName(name);
 	}
 
-	
-	public Team delete(Long id){
+	public Team delete(Long id) {
 		Team team = teamRepository.findOne(id);
-		
-		if(team != null){
-			return teamRepository.deleteById(id).get(0);
 
+		if (team != null) {
+			return teamRepository.deleteById(id).get(0);
 		}
 		return null;
 	}
-	
-	public Team findTeamByName(String name){
+
+	public Team findTeamByName(String name) {
 		return teamRepository.findByName(name).get(0);
 	}
-	
+
 	@Transactional
-	public Team updateTeam(Team team){
+	public Team updateTeam(Team team) {
 		return teamRepository.save(team);
 	}
-	
-	public Team findById(Long id){
+
+	public Team findById(Long id) {
 		return teamRepository.findOne(id);
 	}
-	
-	public List<Team> findAllTeams(){
+
+	public List<Team> findAllTeams() {
 		return (List<Team>) teamRepository.findAll();
 	}
-	
+
 	@Transactional
-	public Team addUserToTeam(User user, Team team){
+	public Team addUserToTeam(User user, Team team) {
 		team.addUser(user);
-		return updateTeam(team); 
+		return updateTeam(team);
 	}
 
 	public Collection<User> findUsersInTeam(Long id) {
@@ -66,14 +64,13 @@ public class TeamService{
 
 	public Collection<WorkItem> findWorkItemsInTeam(Long id) {
 		Collection<User> users = findUsersInTeam(id);
-		Collection<WorkItem> workItems = new HashSet<>(); 
-		for(User user : users) {
-			for(WorkItem workItem: user.getWorkItems()){
+		Collection<WorkItem> workItems = new HashSet<>();
+		for (User user : users) {
+			for (WorkItem workItem : user.getWorkItems()) {
 				workItems.add(workItem);
 			}
 		}
 		return workItems;
 	}
-	
-	
+
 }

@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import se.eldebabe.taskboard.data.models.Status;
 import se.eldebabe.taskboard.data.models.WorkItem;
 
-public interface WorkItemRepository extends CrudRepository<WorkItem, Long>{
+public interface WorkItemRepository extends CrudRepository<WorkItem, Long> {
 
 	List<WorkItem> findByStatus(Status status);
 

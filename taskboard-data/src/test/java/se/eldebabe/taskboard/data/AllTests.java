@@ -7,12 +7,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import se.eldebabe.taskboard.data.services.*;
 
 @RunWith(Suite.class)
-@SuiteClasses({
-	IssueServiceTest.class,
-	TeamServiceTest.class,
-	UserServiceTest.class,
-	WorkItemServiceTest.class
-})
+@SuiteClasses({ IssueServiceTest.class, TeamServiceTest.class, UserServiceTest.class, WorkItemServiceTest.class })
 public class AllTests {
 
 }

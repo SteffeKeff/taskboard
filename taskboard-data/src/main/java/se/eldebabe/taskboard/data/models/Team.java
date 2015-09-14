@@ -15,17 +15,16 @@ import org.codehaus.jackson.annotate.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-
 @Entity
 @Table(name = "teams")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property = "id")
-public class Team extends AbstractEntity{
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+public class Team extends AbstractEntity {
 
-	@Column(name = "name")
+	@Column(name = "name", unique = true)
 	private String name;
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@OneToMany(mappedBy = "team", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
 	private Collection<User> users;
 
 	public void setName(String name) {
@@ -36,23 +35,24 @@ public class Team extends AbstractEntity{
 		this.users = users;
 	}
 
-	protected Team(){}
+	protected Team() {
+	}
 
-	public Team(String teamName){
+	public Team(String teamName) {
 		this.name = teamName;
 		users = new ArrayList<>();
 	}
 
-	public String getName(){
+	public String getName() {
 		return name;
 	}
 
-	public User addUser(User user){
+	public User addUser(User user) {
 		users.add(user);
 		return user;
 	}
-	
-	public Collection<User> getUsers(){
+
+	public Collection<User> getUsers() {
 		return users;
 	}
 
