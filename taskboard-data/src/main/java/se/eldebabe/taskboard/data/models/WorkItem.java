@@ -74,5 +74,16 @@ public class WorkItem extends AbstractEntity {
 	public void setIssue(Issue issue) {
 		this.issue = issue;
 	}
+	
+	public void complete(){
+		status = Status.COMPLETED;
+	}
+	
+	public void incomplete(){
+		status = Status.IN_PROGRESS;
+	}
+	public void notStarted(){
+		status = Status.NOT_STARTED;
+	}
 
 }

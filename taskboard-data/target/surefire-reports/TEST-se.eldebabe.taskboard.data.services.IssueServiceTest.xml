@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="4" failures="0" name="se.eldebabe.taskboard.data.services.IssueServiceTest" time="0.1" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="se.eldebabe.taskboard.data.services.IssueServiceTest" time="0.105" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
@@ -31,7 +31,7 @@
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
-    <property name="os.version" value="10.10.5"/>
+    <property name="os.version" value="10.11"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/Osama"/>
     <property name="user.timezone" value="Europe/Stockholm"/>
@@ -61,8 +61,8 @@
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueCanBeUpdated" time="0.082"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueCanBeUpdated" time="0.086"/>
   <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueIsGettable" time="0.003"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueCanBeDeleted" time="0.012"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueCanBeDeleted" time="0.013"/>
   <testcase classname="se.eldebabe.taskboard.data.services.IssueServiceTest" name="assertThatIssueIsSavable" time="0.003"/>
 </testsuite>
