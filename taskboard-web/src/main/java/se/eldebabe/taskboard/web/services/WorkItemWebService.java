@@ -202,7 +202,7 @@ public final class WorkItemWebService {
 
 	@GET
 	@Path("/status/{workItemStatus}")
-	public final Response getWorkitemWithStatus(@PathParam("workItemStatus") final String workItemStatus)
+	public final Response getWorkItemsWithStatus(@PathParam("workItemStatus") final String workItemStatus)
 			throws JsonGenerationException, JsonMappingException, IOException {
 
 		List<WorkItem> workItems = null;
@@ -223,8 +223,8 @@ public final class WorkItemWebService {
 	}
 	
 	@PUT
-	@Path("{workItemId}/complete")
-	public final Response complete(@PathParam("workItemId") final Long id)
+	@Path("{workItemId}/completed")
+	public final Response setCompleted(@PathParam("workItemId") final Long id)
 			throws JsonParseException, JsonMappingException, IOException {
 		
 
