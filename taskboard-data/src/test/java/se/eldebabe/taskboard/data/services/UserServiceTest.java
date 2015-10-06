@@ -33,10 +33,11 @@ public final class UserServiceTest {
 	@Test
 	public void assertThatUserCanBeUpdated() {
 		user = new User("1002", "user2", "Olle", "Nilsson");
+		user = userService.saveUser(user);
+		user.setFirstName("Peter");
+		user.setLastName("Ohlsson");
 		userService.saveUser(user);
-		user = new User("1002", "user2", "Peter", "Svensson");
-		userService.updateUser(user);
-		assertThat("User should now be changed", user.getFirstName(),
+		assertThat("User should now be changed", "Peter",
 				is(userService.findByUserName("user2").getFirstName()));
 	}
 

@@ -50,7 +50,7 @@ public final class TeamServiceTest {
 	@Test
 	public void assertThatTeamCanBeUpdated() {
 		team = new Team("deldebabe2");
-		Team updatedTeam = teamService.updateTeam(team);
+		Team updatedTeam = teamService.saveTeam(team);
 		assertThat("Team is updated", team, is(updatedTeam));
 	}
 
@@ -132,9 +132,9 @@ public final class TeamServiceTest {
 		user2.addWorkItem(w3);
 		user3.addWorkItem(w4);
 		user3.addWorkItem(w5);
-		userService.updateUser(user1);
-		userService.updateUser(user2);
-		userService.updateUser(user3);
+		userService.saveUser(user1);
+		userService.saveUser(user2);
+		userService.saveUser(user3);
 
 		assertThat("Team2 should contain 5 work items", 5, is(teamService.findWorkItemsInTeam(team3.getId()).size()));
 	}

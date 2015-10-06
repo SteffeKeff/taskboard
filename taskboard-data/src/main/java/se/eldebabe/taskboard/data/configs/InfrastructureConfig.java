@@ -5,6 +5,7 @@ import javax.sql.DataSource;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -19,6 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 @Configuration
 @EnableJpaRepositories("se.eldebabe.taskboard.data.repositories")
 @EnableTransactionManagement
+@EnableJpaAuditing
 public class InfrastructureConfig {
 
 	@Bean

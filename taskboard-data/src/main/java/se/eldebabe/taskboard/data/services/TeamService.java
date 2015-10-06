@@ -36,12 +36,10 @@ public class TeamService{
 	}
 
 	public Team findTeamByName(String name) {
+		if(teamRepository.findByName(name).isEmpty()){
+			return null;
+		}
 		return teamRepository.findByName(name).get(0);
-	}
-
-	@Transactional
-	public Team updateTeam(Team team) {
-		return teamRepository.save(team);
 	}
 
 	public Team findById(Long id) {
@@ -55,7 +53,7 @@ public class TeamService{
 	@Transactional
 	public Team addUserToTeam(User user, Team team) {
 		team.addUser(user);
-		return updateTeam(team);
+		return saveTeam(team);
 	}
 
 	public Collection<User> findUsersInTeam(Long id) {

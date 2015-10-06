@@ -139,7 +139,7 @@ public class TeamWebService{
 
 		for (User user : usersInTeam){
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.saveUser(user);
 		}
 
 		List<Team> teams = teamService.deleteByName(name);
@@ -159,7 +159,7 @@ public class TeamWebService{
 		List<User> usersInTeam = (List<User>) teamWithUsers.getUsers();
 		for(User user : usersInTeam){
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.saveUser(user);
 		}
 
 		Team team = teamService.delete(id);
@@ -180,7 +180,7 @@ public class TeamWebService{
 
 		if (team != null && user != null){
 			user.setTeam(null);
-			userService.updateUser(user);
+			userService.saveUser(user);
 			team = teamService.findById(id);
 			return Response.ok(mapper.writeValueAsString(team)).build();
 		}

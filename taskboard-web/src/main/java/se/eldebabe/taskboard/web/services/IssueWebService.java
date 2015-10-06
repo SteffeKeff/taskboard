@@ -1,15 +1,18 @@
 package se.eldebabe.taskboard.web.services;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -69,6 +72,33 @@ public final class IssueWebService {
 		} else {
 			return Response.noContent().build();
 		}
+	}
+	
+	@GET
+	@Path("pages")
+	public final Response getAllIssues(@DefaultValue("0") @QueryParam("page") final int page, @DefaultValue("0") @QueryParam("size") final int size)
+			throws com.fasterxml.jackson.core.JsonGenerationException,
+			com.fasterxml.jackson.databind.JsonMappingException, IOException {
+		ArrayList<Issue> issues = new ArrayList<>();
+		
+		if (!issues.isEmpty()) {
+			if (page > 0 && size > 0) {
+				Iterable<Issue> issuePages;
+				issuePages = issueService.findAllIssues(page, size);
+				for(Issue issue : issuePages){
+					issues.add(issue);
+				}
+				return Response.ok(mapper.writeValueAsString(issues)).build();
+			}else{
+				Iterable<Issue> issuePages;
+				issuePages = issueService.findAllIssues();
+				for(Issue issue : issuePages){
+					issues.add(issue);
+				}
+				return Response.ok(mapper.writeValueAsString(issues)).build();
+			}
+		}
+		return Response.status(Status.NOT_FOUND).build();
 	}
 
 	@DELETE

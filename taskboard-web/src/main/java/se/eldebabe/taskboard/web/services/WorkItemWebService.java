@@ -1,11 +1,15 @@
 package se.eldebabe.taskboard.web.services;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -78,6 +82,29 @@ public final class WorkItemWebService {
 		}
 		return Response.status(Status.NOT_FOUND).build();
 	}
+	
+	@GET
+	@Path("history")
+	public final Response getWorkItemsHistory(@QueryParam("fromDate") final String fromDate, @QueryParam("toDate") final String toDate)
+			throws com.fasterxml.jackson.core.JsonGenerationException,
+			com.fasterxml.jackson.databind.JsonMappingException, IOException {
+
+		if (fromDate.length() == 10 && toDate.length() == 10) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date fd, td;
+			try {
+				fd = sdf.parse(fromDate);
+				td = sdf.parse(toDate);
+
+				ArrayList<WorkItem> workItems = workItemService.findWithinDate(fd, td);
+				return Response.ok(mapper.writeValueAsString(workItems)).build();
+			} catch (ParseException e) {
+				return Response.status(Status.BAD_REQUEST).build();
+			}
+
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+	}
 
 	@GET
 	@Path("description")
@@ -92,6 +119,29 @@ public final class WorkItemWebService {
 			return Response.ok(mapper.writeValueAsString(workItems)).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	@GET
+	public final Response getAllWorkItems(@DefaultValue("0") @QueryParam("page") final int page, @DefaultValue("0") @QueryParam("size") final int size)
+			throws com.fasterxml.jackson.core.JsonGenerationException,
+			com.fasterxml.jackson.databind.JsonMappingException, IOException {
+		ArrayList<WorkItem> workItems = new ArrayList<>();
+		
+		if (page > 0 && size > 0) {
+			Iterable<WorkItem> workItemPages;
+			workItemPages = workItemService.findAllWorkItems(page, size);
+			for(WorkItem wi : workItemPages){
+				workItems.add(wi);
+			}
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
+		}else{
+			Iterable<WorkItem> workItemPages;
+			workItemPages = workItemService.findAllWorkItems();
+			for(WorkItem wi : workItemPages){
+				workItems.add(wi);
+			}
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
 		}
 	}
 
@@ -169,20 +219,6 @@ public final class WorkItemWebService {
 			return Response.ok(mapper.writeValueAsString(workItems)).build();
 		} else {
 			return Response.noContent().build();
-		}
-	}
-
-	@DELETE
-	@Path("{workItemId}")
-	public final Response changeStatus(@PathParam("workItemId") final Long id)
-			throws JsonParseException, JsonMappingException, IOException{
-		WorkItem workItem = workItemService.findWorkItem(id);
-
-		if(null != workItem) {
-			workItemService.deleteWorkItem(id);
-			return Response.ok(mapper.writeValueAsString(workItem)).build();
-		}else{
-			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
 }

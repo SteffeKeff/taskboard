@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -112,6 +113,33 @@ public class UserWebService {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 	}
+	
+	@GET
+	@Path("pages")
+	public final Response getAllUsers(@DefaultValue("0") @QueryParam("page") final int page, @DefaultValue("0") @QueryParam("size") final int size)
+			throws com.fasterxml.jackson.core.JsonGenerationException,
+			com.fasterxml.jackson.databind.JsonMappingException, IOException {
+		ArrayList<User> users = new ArrayList<>();
+		
+		if (!users.isEmpty()) {
+			if (page > 0 && size > 0) {
+				Iterable<User> userPages;
+				userPages = userService.findAllUsers(page, size);
+				for(User user : userPages){
+					users.add(user);
+				}
+				return Response.ok(mapper.writeValueAsString(users)).build();
+			}else{
+				Iterable<User> userPages;
+				userPages = userService.findAllUsers();
+				for(User user : userPages){
+					users.add(user);
+				}
+				return Response.ok(mapper.writeValueAsString(users)).build();
+			}
+		}
+		return Response.status(Status.NOT_FOUND).build();
+	}
 
 	@DELETE
 	@Path("{userId}")
@@ -135,7 +163,7 @@ public class UserWebService {
 			IOException {
 		User user = mapper.readValue(json, User.class);
 		user.setUserId(userId);
-		user = userService.updateUser(user);
+		user = userService.saveUser(user);
 
 		if (user != null) {
 			return Response.ok(mapper.writeValueAsString(user)).build();
@@ -158,7 +186,7 @@ public class UserWebService {
 
 		if (null != user && null != workItem) {
 			user.addWorkItem(workItem);
-			user = userService.updateUser(user);
+			user = userService.saveUser(user);
 			return Response.ok(mapper.writeValueAsString(user)).build();
 		} else {
 			return Response.status(Status.BAD_REQUEST).build();

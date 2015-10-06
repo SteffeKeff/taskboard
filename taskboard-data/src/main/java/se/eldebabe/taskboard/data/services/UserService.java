@@ -3,6 +3,8 @@ package se.eldebabe.taskboard.data.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import se.eldebabe.taskboard.data.models.User;
 import se.eldebabe.taskboard.data.repositories.UserRepository;
@@ -14,15 +16,6 @@ public class UserService {
 
 	public User saveUser(User user) {
 		return userRepository.save(user);
-	}
-
-	public User updateUser(User user) {
-		User oldUser = findUser(user.getUserId());
-		if (oldUser != null) {
-			return userRepository.save(user);
-		} else {
-			return null;
-		}
 	}
 
 	public User findUser(String userId) {
@@ -47,5 +40,16 @@ public class UserService {
 
 	public void clearUsers() {
 		userRepository.deleteAll();
+	}
+	
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
+	}
+	
+	public Iterable<User> findAllUsers(int pages, int size) {
+		PageRequest pr = new PageRequest(pages, size);
+		
+		Page<User> users = userRepository.findAll(pr);
+		return users;
 	}
 }

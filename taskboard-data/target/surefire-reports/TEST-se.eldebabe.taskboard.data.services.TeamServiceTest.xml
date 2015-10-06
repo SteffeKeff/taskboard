@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="se.eldebabe.taskboard.data.services.TeamServiceTest" time="0.409" errors="0" skipped="0">
+<testsuite tests="7" failures="0" name="se.eldebabe.taskboard.data.services.TeamServiceTest" time="0.474" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre/lib"/>
@@ -32,17 +32,18 @@
     <property name="java.class.version" value="52.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="os.version" value="10.10.5"/>
+    <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="user.home" value="/Users/Osama"/>
     <property name="user.timezone" value="Europe/Stockholm"/>
     <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob"/>
-    <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.8"/>
+    <property name="file.encoding" value="UTF-8"/>
     <property name="user.name" value="Osama"/>
     <property name="java.class.path" value="/Users/Osama/Documents/Kurs/web-programming/apache-maven-3.2.5/boot/plexus-classworlds-2.5.2.jar"/>
     <property name="java.vm.specification.version" value="1.8"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.8.0_25.jdk/Contents/Home/jre"/>
-    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher package"/>
+    <property name="sun.java.command" value="org.codehaus.plexus.classworlds.launcher.Launcher install"/>
     <property name="java.specification.vendor" value="Oracle Corporation"/>
     <property name="user.language" value="sv"/>
     <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit"/>
@@ -56,13 +57,15 @@
     <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="sun.io.unicode.encoding" value="UnicodeBig"/>
+    <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
+    <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatUserCanBeAddedToTeam" time="0.208"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatTeamCanBeDeleted" time="0.04"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllTeamesCanBeFetched" time="0.026"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllWorkingItemsInATeamCanBeFetched" time="0.086"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatUserCanBeAddedToTeam" time="0.252"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatTeamCanBeDeleted" time="0.02"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllTeamesCanBeFetched" time="0.025"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllWorkingItemsInATeamCanBeFetched" time="0.137"/>
   <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatTeamIsSavable" time="0.003"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatTeamCanBeUpdated" time="0.004"/>
-  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllUsersInATeamCanBeFetched" time="0.042"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatTeamCanBeUpdated" time="0.005"/>
+  <testcase classname="se.eldebabe.taskboard.data.services.TeamServiceTest" name="assertThatAllUsersInATeamCanBeFetched" time="0.032"/>
 </testsuite>
