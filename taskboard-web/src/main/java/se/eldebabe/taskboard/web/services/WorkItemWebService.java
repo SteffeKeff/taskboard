@@ -171,5 +171,56 @@ public final class WorkItemWebService {
 			return Response.noContent().build();
 		}
 	}
+	
+	@PUT
+	@Path("{workItemId}/complete")
+	public final Response complete(@PathParam("workItemId") final Long id)
+			throws JsonParseException, JsonMappingException, IOException {
+		
+
+		WorkItem workItem = workItemService.findWorkItem(id);
+		workItem.complete();
+
+		workItem = workItemService.saveWorkItem(workItem);
+		if (workItem != null) {
+			return Response.ok(mapper.writeValueAsString(workItem)).build();
+		} else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	@PUT
+	@Path("{workItemId}/inprogress")
+	public final Response setInProgress(@PathParam("workItemId") final Long id)
+			throws JsonParseException, JsonMappingException, IOException {
+		
+
+		WorkItem workItem = workItemService.findWorkItem(id);
+		workItem.incomplete();
+
+		workItem = workItemService.saveWorkItem(workItem);
+		if (workItem != null) {
+			return Response.ok(mapper.writeValueAsString(workItem)).build();
+		} else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
+	
+	@PUT
+	@Path("{workItemId}/notstarted")
+	public final Response setNotStarted(@PathParam("workItemId") final Long id)
+			throws JsonParseException, JsonMappingException, IOException {
+		
+
+		WorkItem workItem = workItemService.findWorkItem(id);
+		workItem.notStarted();
+
+		workItem = workItemService.saveWorkItem(workItem);
+		if (workItem != null) {
+			return Response.ok(mapper.writeValueAsString(workItem)).build();
+		} else {
+			return Response.status(Status.NOT_FOUND).build();
+		}
+	}
 
 }
