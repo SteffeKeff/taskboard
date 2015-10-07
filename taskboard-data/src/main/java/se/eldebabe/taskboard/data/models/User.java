@@ -40,8 +40,8 @@ public class User extends AbstractEntity{
 	@JsonBackReference
 	private Team team;
 	
-	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
-	@JsonManagedReference
+	@OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.EAGER)
+//	@JsonManagedReference
 	private Collection<WorkItem> workItems;
 
 	protected User() {
