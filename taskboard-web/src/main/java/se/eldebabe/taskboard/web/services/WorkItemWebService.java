@@ -215,7 +215,76 @@ public final class WorkItemWebService {
 		}
 
 		workItems = workItemService.findWorkItemsWithStatus(status);
-		if (null != workItems) {
+		if (workItems != null ) {
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
+		} else {
+			return Response.noContent().build();
+		}
+	}
+	
+	@GET
+	@Path("/status/completed")
+	public final Response getCompletedWorkItems(@PathParam("workItemStatus") String workItemStatus)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		List<WorkItem> workItems = null;
+		se.eldebabe.taskboard.data.models.Status status = null;
+		workItemStatus = "completed";
+
+		try {
+			status = se.eldebabe.taskboard.data.models.Status.valueOf(workItemStatus.toUpperCase());
+		} catch (RuntimeException IllegalArgumentException) {
+			return Response.status(406).build();
+		}
+
+		workItems = workItemService.findWorkItemsWithStatus(status);
+		if (workItems != null ) {
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
+		} else {
+			return Response.noContent().build();
+		}
+	}
+	
+	@GET
+	@Path("/status/inprogress")
+	public final Response getIncompletedWorkItems(@PathParam("workItemStatus") String workItemStatus)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		List<WorkItem> workItems = null;
+		se.eldebabe.taskboard.data.models.Status status = null;
+		workItemStatus = "in_progress";
+
+		try {
+			status = se.eldebabe.taskboard.data.models.Status.valueOf(workItemStatus.toUpperCase());
+		} catch (RuntimeException IllegalArgumentException) {
+			return Response.status(406).build();
+		}
+
+		workItems = workItemService.findWorkItemsWithStatus(status);
+		if (workItems != null ) {
+			return Response.ok(mapper.writeValueAsString(workItems)).build();
+		} else {
+			return Response.noContent().build();
+		}
+	}
+	
+	@GET
+	@Path("/status/notstarted")
+	public final Response getNotStartedWorkItems(@PathParam("workItemStatus") String workItemStatus)
+			throws JsonGenerationException, JsonMappingException, IOException {
+
+		List<WorkItem> workItems = null;
+		se.eldebabe.taskboard.data.models.Status status = null;
+		workItemStatus = "not_started";
+
+		try {
+			status = se.eldebabe.taskboard.data.models.Status.valueOf(workItemStatus.toUpperCase());
+		} catch (RuntimeException IllegalArgumentException) {
+			return Response.status(406).build();
+		}
+
+		workItems = workItemService.findWorkItemsWithStatus(status);
+		if (workItems != null ) {
 			return Response.ok(mapper.writeValueAsString(workItems)).build();
 		} else {
 			return Response.noContent().build();

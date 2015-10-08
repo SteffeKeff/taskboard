@@ -2,6 +2,7 @@
 *.class
 
 #Maven-filer
+maven-status
 
 #Mac-filer
 .DS_Store
@@ -21,6 +22,7 @@ tmp/
 local.properties
 .settings/
 .loadpath
+surefire-reports/
 
 # Eclipse Core
 .project
